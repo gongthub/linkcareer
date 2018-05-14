@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04857F03-E3A5-4C04-A4D4-84CFC0764389}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Storm.Domain</RootNamespace>
+    <AssemblyName>Storm.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\CertificateManage\CertificateEntity.cs" />
+    <Compile Include="Entity\WFManage\ApprovalProcessEntity.cs" />
+    <Compile Include="Entity\WFManage\FlowAreaEntity.cs" />
+    <Compile Include="Entity\WFManage\FlowEntity.cs" />
+    <Compile Include="Entity\WFManage\FlowEnum.cs" />
+    <Compile Include="Entity\WFManage\FlowLineEntity.cs" />
+    <Compile Include="Entity\WFManage\FlowNodeEntity.cs" />
+    <Compile Include="Entity\WFManage\FlowVersionEntity.cs" />
+    <Compile Include="Entity\WFManage\FormControlEntity.cs" />
+    <Compile Include="Entity\WFManage\FormEntity.cs" />
+    <Compile Include="Entity\WFManage\GooFlowEntity.cs" />
+    <Compile Include="Entity\WFManage\MyPendingWorkEntity.cs" />
+    <Compile Include="Entity\WFManage\WFItemDetailEntity.cs" />
+    <Compile Include="Entity\WFManage\WFItemEntity.cs" />
+    <Compile Include="Entity\WFManage\WorkControlEntity.cs" />
+    <Compile Include="Entity\WFManage\WorkEntity.cs" />
+    <Compile Include="Entity\WFManage\WorkFileEntity.cs" />
+    <Compile Include="Infrastructure\ICreationAudited.cs" />
+    <Compile Include="Infrastructure\IDeleteAudited.cs" />
+    <Compile Include="Infrastructure\IEntity.cs" />
+    <Compile Include="Infrastructure\IModificationAudited.cs" />
+    <Compile Include="IRepository\CertificateManage\ICertificateRepository.cs" />
+    <Compile Include="IRepository\WFManage\IApprovalProcessRepository.cs" />
+    <Compile Include="IRepository\WFManage\IFlowRepository.cs" />
+    <Compile Include="IRepository\WFManage\IFlowVersionRepository.cs" />
+    <Compile Include="IRepository\WFManage\IFormRepository.cs" />
+    <Compile Include="IRepository\WFManage\IWFItemDetailRepository.cs" />
+    <Compile Include="IRepository\WFManage\IWFItemRepository.cs" />
+    <Compile Include="IRepository\WFManage\IWorkFlowRepository.cs" />
+    <Compile Include="IRepository\WFManage\IWorkRepository.cs" />
+    <Compile Include="ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="Entity\SystemManage\AreaEntity.cs" />
+    <Compile Include="Entity\SystemManage\ItemsDetailEntity.cs" />
+    <Compile Include="Entity\SystemManage\ItemsEntity.cs" />
+    <Compile Include="Entity\SystemManage\ModuleButtonEntity.cs" />
+    <Compile Include="Entity\SystemManage\ModuleEntity.cs" />
+    <Compile Include="Entity\SystemManage\OrganizeEntity.cs" />
+    <Compile Include="Entity\SystemManage\RoleAuthorizeEntity.cs" />
+    <Compile Include="Entity\SystemManage\RoleEntity.cs" />
+    <Compile Include="Entity\SystemManage\UserEntity.cs" />
+    <Compile Include="Entity\SystemManage\UserLogOnEntity.cs" />
+    <Compile Include="Entity\SystemSecurity\DbBackupEntity.cs" />
+    <Compile Include="Entity\SystemSecurity\FilterIPEntity.cs" />
+    <Compile Include="Entity\SystemSecurity\LogEntity.cs" />
+    <Compile Include="IRepository\SystemManage\IAreaRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IItemsDetailRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IItemsRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IModuleButtonRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IModuleRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IOrganizeRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IRoleRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IUserLogOnRepository.cs" />
+    <Compile Include="IRepository\SystemManage\IUserRepository.cs" />
+    <Compile Include="IRepository\SystemSecurity\IDbBackupRepository.cs" />
+    <Compile Include="IRepository\SystemSecurity\IFilterIPRepository.cs" />
+    <Compile Include="IRepository\SystemSecurity\ILogRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Storm.Code\Storm.Code.csproj">
+      <Project>{43d41e67-93e1-41f9-b8a1-85417e24784a}</Project>
+      <Name>Storm.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Storm.Data\Storm.Data.csproj">
+      <Project>{df84a52a-1fd9-473c-b487-0e779880247f}</Project>
+      <Name>Storm.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

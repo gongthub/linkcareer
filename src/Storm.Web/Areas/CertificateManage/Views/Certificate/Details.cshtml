@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        $.ajax({
+            url: "/CertificateManage/Certificate/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                data.CertificationTime = formatDateToStr("yyyy-MM-dd", data.CertificationTime);
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+    });
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">序号</th>
+                <td class="formValue">
+                    <input id="SortCode" name="SortCode" type="text" class="form-control required" placeholder="请输入序号" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">姓名</th>
+                <td class="formValue">
+                    <input id="FullName" name="FullName" type="text" class="form-control required" placeholder="请输入姓名" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">性别</th>
+                <td class="formValue">
+                    <select id="Gender" name="Gender" class="form-control required">
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">身份证号</th>
+                <td class="formValue">
+                    <input id="IdCard" name="IdCard" type="text" class="form-control required" placeholder="请输入身份证号" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">项目名称</th>
+                <td class="formValue">
+                    <input id="ProjectName" name="ProjectName" type="text" class="form-control required" placeholder="请输入项目名称" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">证书编号</th>
+                <td class="formValue">
+                    <input id="Number" name="Number" type="text" class="form-control required" placeholder="请输入证书编号" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">发证时间</th>
+                <td class="formValue">
+                    <input id="CertificationTime" name="CertificationTime" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>

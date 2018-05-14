@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_FlowForm.cshtml";
+}
+<div style="padding-top: 20px; margin-right: 20px;">
+    <table class="form">
+        <tr>
+            <th class="formTitle">名称</th>
+            <td class="formValue">
+                <input id="txtName" name="Name" type="text" class="form-control required" placeholder="请输入名称" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">默认值</th>
+            <td class="formValue">
+                <div class="input-group">
+                    <input type="text" id="txtDefaultValue" name="DefaultValue" readonly class="form-control required" placeholder="请输入默认值" aria-describedby="spselect" />
+                    <span class="input-group-addon" id="spselect" style="cursor:pointer;" onclick="selDefault()">选择</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">宽度</th>
+            <td class="formValue">
+                <input id="txtWidth" name="Width" type="number" class="form-control required" placeholder="请输入宽度" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">
+                是否可空
+            </th>
+            <td class="formValue">
+                <select id="selIsNull" class="form-control required">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var oNode = null, thePlugins = 'formorg';
+    var attJSON = parent.formattributeJSON;
+    $(function () {
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+        }
+        if (oNode) {
+            $text = $(oNode);
+            $("#txtDefaultValue").val($text.attr('defaultvalueText') || "");
+            $("#txtName").val(RoadUI.Core.decodeUri($text.attr('name') || ""));
+            var widthStr = $text.css('width');
+            if (widthStr) {
+                widthStr = widthStr.replace("px", "");
+                $("#txtWidth").val(widthStr);
+            }
+            if ($text.attr('isnull')) {
+                $("#selIsNull").val($text.attr('isnull'));
+            }
+            if ($text.attr('defaultValue')) {
+                $("#txtDefaultValue").attr("defaultValue", $text.attr('defaultValue'));
+            } else {
+                $("#txtDefaultValue").attr("defaultValue", "");
+            }
+        }
+        $("#txtDefaultValue").change(function () {
+            $("#txtDefaultValue").attr("valuetype", 0);
+        });
+    });
+
+    dialog.oncancel = function () {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function () {
+        var timestamp = Date.parse(new Date());
+        var id = "org_flow_" + timestamp;
+        var name = $("#txtName").val();
+        var width = $("#txtWidth").val();
+        var defaultvalueText = $("#txtDefaultValue").val();
+        var defaultValue = $("#txtDefaultValue").attr("defaultValue");
+        var isnull = $("#selIsNull").val();
+
+        var otext = document.createElement('input');
+        otext.id = id;
+        $(otext).attr("type", "text");
+        $(otext).attr("type1", "flow_org");
+        $(otext).attr("class", "flowformcontrol");
+        $(otext).attr("name", encodeURI(name));
+        $(otext).attr("value", name);
+        $(otext).attr("isnull", isnull);
+        if (width) {
+            $(otext).css("width", width + "px");
+        } else {
+            $(otext).css("width", "120px");
+        }
+        if (defaultvalueText) {
+            $(otext).attr("defaultvalueText", defaultvalueText);
+        } else {
+            $(otext).attr("defaultvalueText", "");
+        }
+        if (defaultValue) {
+            $(otext).attr("defaultValue", defaultValue);
+        } else {
+            $(otext).attr("defaultValue", "");
+        }
+
+        if (oNode) {
+            $(oNode).after(otext.outerHTML);
+            domUtils.remove(oNode, false);
+        }
+        else {
+            editor.execCommand('insertHtml', otext.outerHTML);
+        }
+        delete UE.plugins[thePlugins].editdom;
+    }
+    function selDefault() {
+        $.modalOpen({
+            id: "ControlDefaultValue",
+            title: "选择默认选项",
+            url: "/WFManage/CustomControl/OrgForm",
+            width: "700px",
+            height: "500px",
+            callBack: function (iframeId) {
+                var selItem = top.frames[iframeId].getSelOrg();
+                if (selItem != null && selItem.Id != null) {
+                    $("#txtDefaultValue").attr("defaultValue", selItem.Id);
+                } else {
+                    $("#txtDefaultValue").attr("defaultValue", "");
+                }
+                var obj = parseDom(selItem.FullName);
+                var fullNameStr = obj[1].innerText;
+                $("#txtDefaultValue").val(fullNameStr);
+            }
+        });
+    }
+    function parseDom(arg) {
+        var objE = document.createElement("div");
+        objE.innerHTML = arg;
+        return objE.childNodes;
+    }
+</script>

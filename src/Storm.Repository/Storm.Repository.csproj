@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4AC84E8-54E6-439E-823B-D96F7D9FF55D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Storm.Repository</RootNamespace>
+    <AssemblyName>Storm.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CertificateManage\CertificateRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemManage\AreaRepository.cs" />
+    <Compile Include="SystemManage\ItemsDetailRepository.cs" />
+    <Compile Include="SystemManage\ItemsRepository.cs" />
+    <Compile Include="SystemManage\ModuleButtonRepository.cs" />
+    <Compile Include="SystemManage\ModuleRepository.cs" />
+    <Compile Include="SystemManage\OrganizeRepository.cs" />
+    <Compile Include="SystemManage\RoleAuthorizeRepository.cs" />
+    <Compile Include="SystemManage\RoleRepository.cs" />
+    <Compile Include="SystemManage\UserLogOnRepository.cs" />
+    <Compile Include="SystemManage\UserRepository.cs" />
+    <Compile Include="SystemSecurity\DbBackupRepository.cs" />
+    <Compile Include="SystemSecurity\FilterIPRepository.cs" />
+    <Compile Include="SystemSecurity\LogRepository.cs" />
+    <Compile Include="WFManage\ApprovalProcessRepository.cs" />
+    <Compile Include="WFManage\FlowRepository.cs" />
+    <Compile Include="WFManage\FlowVersionRepository.cs" />
+    <Compile Include="WFManage\FormRepository.cs" />
+    <Compile Include="WFManage\WFItemDetailRepository.cs" />
+    <Compile Include="WFManage\WFItemRepository.cs" />
+    <Compile Include="WFManage\WorkFlowRepository.cs" />
+    <Compile Include="WFManage\WorkRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Storm.Code\Storm.Code.csproj">
+      <Project>{43d41e67-93e1-41f9-b8a1-85417e24784a}</Project>
+      <Name>Storm.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Storm.Data\Storm.Data.csproj">
+      <Project>{df84a52a-1fd9-473c-b487-0e779880247f}</Project>
+      <Name>Storm.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Storm.Domain\Storm.Domain.csproj">
+      <Project>{04857f03-e3a5-4c04-a4d4-84cfc0764389}</Project>
+      <Name>Storm.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

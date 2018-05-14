@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F541F83-07FF-4632-ACDA-520B97BAD429}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Storm.Mapping</RootNamespace>
+    <AssemblyName>Storm.Mapping</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CertificateManage\CertificateMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemManage\AreaMap.cs" />
+    <Compile Include="SystemManage\ItemsDetailMap.cs" />
+    <Compile Include="SystemManage\ItemsMap.cs" />
+    <Compile Include="SystemManage\ModuleButtonMap.cs" />
+    <Compile Include="SystemManage\ModuleMap.cs" />
+    <Compile Include="SystemManage\OrganizeMap.cs" />
+    <Compile Include="SystemManage\RoleAuthorizeMap.cs" />
+    <Compile Include="SystemManage\RoleMap.cs" />
+    <Compile Include="SystemManage\UserLogOnMap.cs" />
+    <Compile Include="SystemManage\UserMap.cs" />
+    <Compile Include="SystemSecurity\DbBackupMap.cs" />
+    <Compile Include="SystemSecurity\FilterIPMap.cs" />
+    <Compile Include="SystemSecurity\LogMap.cs" />
+    <Compile Include="WFManage\ApprovalProcessMap.cs" />
+    <Compile Include="WFManage\FlowAreaMap.cs" />
+    <Compile Include="WFManage\FlowLineMap.cs" />
+    <Compile Include="WFManage\FlowMap.cs" />
+    <Compile Include="WFManage\FlowNodeMap.cs" />
+    <Compile Include="WFManage\FlowVersionMap.cs" />
+    <Compile Include="WFManage\FormControlMap.cs" />
+    <Compile Include="WFManage\FormMap.cs" />
+    <Compile Include="WFManage\WFItemDetailMap.cs" />
+    <Compile Include="WFManage\WFItemMap.cs" />
+    <Compile Include="WFManage\WorkControlMap.cs" />
+    <Compile Include="WFManage\WorkFileMap.cs" />
+    <Compile Include="WFManage\WorkMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Storm.Domain\Storm.Domain.csproj">
+      <Project>{04857f03-e3a5-4c04-a4d4-84cfc0764389}</Project>
+      <Name>Storm.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_FlowForm.cshtml";
+}
+<div style="padding-top: 20px; margin-right: 20px;">
+    <table class="form">
+        <tr>
+            <th class="formTitle">名称</th>
+            <td class="formValue">
+                <input id="txtName" name="Name" type="text" class="form-control required" placeholder="请输入名称" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">数据源</th>
+            <td class="formValue">
+                <select id="selDatas" name="selDatas" class="form-control required">
+                    <option value="0">==请选择==</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">默认值</th>
+            <td class="formValue">
+                <select id="selDefaultValue" name="selDefaultValue" class="form-control required" style="height:34px;" multiple="multiple"></select>
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">
+                是否只读
+            </th>
+            <td class="formValue">
+                <select id="selIsReadonly" class="form-control required">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">
+                是否可空
+            </th>
+            <td class="formValue">
+                <select id="selIsNull" class="form-control required">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var oNode = null, thePlugins = 'formcheckbox';
+    var attJSON = parent.formattributeJSON;
+    var ITEMID = "";
+    $(function () {
+        initControl();
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+        }
+        if (oNode) {
+            $text = $(oNode);
+            $("#txtName").val($text.attr('name'));
+            if ($text.attr('readonly')) {
+                $("#selIsReadonly").val(1);
+            } else {
+                $("#selIsReadonly").val(0);
+            } if ($text.attr('isnull')) {
+                $("#selIsNull").val($text.attr('isnull'));
+            }
+            if ($text.attr('defaultvalue')) {
+                var seldefaultvalue = $text.attr('defaultvalue');
+                ITEMID = seldefaultvalue;
+            }
+            if ($text.attr('dataid')) {
+                var selDataId = $text.attr('dataid');
+                $("#selDatas").val(selDataId).trigger("change");
+                initDataItem();
+            }
+        }
+        $("#selDatas").change(function () {
+            initDataItem();
+        });
+    });
+
+    dialog.oncancel = function () {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function () {
+        var timestamp = Date.parse(new Date());
+        var id = "checkbox_flow_" + timestamp;
+        var name = $("#txtName").val();
+        var dataid = $("#selDatas").val();
+        var defaultvalue = $("#selDefaultValue").val();
+        var isreadonly = $("#selIsReadonly").val();
+        var isnull = $("#selIsNull").val();
+
+        var otext = document.createElement('input');
+        otext.id = id;
+        $(otext).attr("type", "text");
+        $(otext).attr("type1", "flow_checkbox");
+        $(otext).attr("class", "flowformcontrol");
+        $(otext).attr("name", name);
+        $(otext).attr("value", name);
+        $(otext).attr("isnull", isnull);
+        if (isreadonly == 1) {
+            $(otext).attr("readonly", "readonly");
+        }
+        if (dataid) {
+            $(otext).attr("dataid", dataid);
+        } else {
+            $(otext).attr("dataid", "");
+        }
+        $(otext).attr("defaultvalue", defaultvalue);
+        if (oNode) {
+            $(oNode).after(otext.outerHTML);
+            domUtils.remove(oNode, false);
+        }
+        else {
+            editor.execCommand('insertHtml', otext.outerHTML);
+        }
+        delete UE.plugins[thePlugins].editdom;
+    }
+
+    function initControl() {
+        $("#selDefaultValue").select2();
+        $("#selDatas").bindSelect({
+            url: "/WFManage/FlowDictionary/GetTreeSelectJson"
+        });
+    }
+    function initDataItem() {
+        $("#selDefaultValue").empty();
+        var itemId = $("#selDatas").val();
+        $("#selDefaultValue").bindSelect({
+            url: "/WFManage/FlowDictionaryDetail/GetGridJson?itemId=" + itemId,
+            id: "Id",
+            text: "ItemName",
+            callBack: function () {
+                if (ITEMID != null && ITEMID != undefined && ITEMID != "") {
+                    var itemids = [];
+                    itemId = ITEMID.split(',');
+                    $("#selDefaultValue").val(itemId).trigger("change");
+                }
+            }
+        });
+    }
+</script>
