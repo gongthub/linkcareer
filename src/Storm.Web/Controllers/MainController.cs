@@ -48,7 +48,15 @@ namespace Storm.Web.Controllers
                     ViewBag.CertificationTimeStr = ((DateTime)certificateEntity.CertificationTime).ToString("yyyy-MM-dd");
                 }
             }
-            return View(certificateEntity);
+            if (certificateEntity != null && !string.IsNullOrEmpty(certificateEntity.Id))
+                return View(certificateEntity);
+            else
+                return View("NoFind");
+        }
+        // GET: Main
+        public ActionResult NoFind()
+        {
+            return View();
         }
     }
 }

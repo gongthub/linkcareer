@@ -76,6 +76,12 @@ namespace Storm.Application.CertificateManage
         }
         public void SubmitForm(CertificateEntity certificateEntity, string keyValue)
         {
+            List<CertificateEntity> models = GetList();
+            models = models.Where(m => m.IdCard == certificateEntity.IdCard && m.Id != keyValue).ToList();
+            if (models != null && models.Count > 0)
+            {
+                throw new Exception("身份证号已存在，请重新输入！");
+            }
             if (!string.IsNullOrEmpty(keyValue))
             {
                 certificateEntity.Modify(keyValue);
