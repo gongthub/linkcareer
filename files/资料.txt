@@ -1,0 +1,4 @@
+查询网址：http://106.15.62.72:8081
+后台网站：http://106.15.62.72:8081/login/index
+用户名:linkcareer
+密  码:linkcareer
