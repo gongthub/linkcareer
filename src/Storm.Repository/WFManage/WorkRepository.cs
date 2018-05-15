@@ -1,4 +1,5 @@
-﻿using Storm.Code;
+﻿using MySql.Data.MySqlClient;
+using Storm.Code;
 using Storm.Data;
 using Storm.Domain.Entity.WFManage;
 using Storm.Domain.IRepository.WFManage;
@@ -138,10 +139,10 @@ namespace Storm.Repository.WFManage
                         strSql += " and (A.UserName like @userName or A.DeptName like @deptName or A.FullName like @name)";
                         DbParameter[] parameter = 
                             {
-                                 new SqlParameter("@userName",keyword),
-                                 new SqlParameter("@deptName",keyword),
-                                 new SqlParameter("@name",keyword),
-                                 new SqlParameter("@appuserId",applyUserId)
+                                 new MySqlParameter("@userName",keyword),
+                                 new MySqlParameter("@deptName",keyword),
+                                 new MySqlParameter("@name",keyword),
+                                 new MySqlParameter("@appuserId",applyUserId)
                             };
                         models = db.FindList<MyPendingWorkEntity>(strSql.ToString(), parameter);
                     }
@@ -150,7 +151,7 @@ namespace Storm.Repository.WFManage
 
                         DbParameter[] parameter = 
                             {
-                                 new SqlParameter("@appuserId",applyUserId)
+                                 new MySqlParameter("@appuserId",applyUserId)
                             };
                         models = db.FindList<MyPendingWorkEntity>(strSql.ToString(), parameter);
                     }

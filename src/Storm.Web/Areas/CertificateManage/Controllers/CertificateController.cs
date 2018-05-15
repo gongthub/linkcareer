@@ -13,7 +13,7 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
     public class CertificateController : ControllerBase
     {
         private CertificateApp certificateApp = new CertificateApp();
-
+        
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)

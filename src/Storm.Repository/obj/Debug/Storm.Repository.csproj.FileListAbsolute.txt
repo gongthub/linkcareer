@@ -98,3 +98,6 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Debug\Storm.Repository.d
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Debug\Storm.Repository.pdb
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\MySql.Data.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\Storm.Repository.dll.config
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\EntityFramework.SqlServer.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\EntityFramework.SqlServer.xml

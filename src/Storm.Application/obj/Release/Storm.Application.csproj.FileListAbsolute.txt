@@ -24,3 +24,4 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Application\obj\Release\Storm.Applicati
 D:\MyFiles\Projects\linkcareer\src\Storm.Application\obj\Release\Storm.Application.pdb
 D:\MyFiles\Projects\linkcareer\src\Storm.Application\bin\Release\MySql.Data.Entity.EF6.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Application\bin\Release\MySql.Data.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Application\bin\Release\Storm.Repository.dll.config

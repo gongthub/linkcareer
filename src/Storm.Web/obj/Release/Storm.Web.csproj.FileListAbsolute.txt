@@ -56,3 +56,4 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Release\Storm.Web.csproj.CoreCo
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Release\Storm.Web.csproj.CopyComplete
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Release\Storm.Web.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Release\Storm.Web.pdb
+D:\MyFiles\Projects\linkcareer\src\Storm.Web\bin\Storm.Repository.dll.config

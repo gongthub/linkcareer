@@ -1,4 +1,5 @@
-﻿using Storm.Code;
+﻿using MySql.Data.MySqlClient;
+using Storm.Code;
 using Storm.Data;
 using Storm.Domain.Entity.SystemManage;
 using Storm.Domain.IRepository.SystemManage;
@@ -25,7 +26,7 @@ namespace Storm.Repository.SystemManage
                             ORDER BY d.SortCode ASC");
             DbParameter[] parameter = 
             {
-                 new SqlParameter("@enCode",enCode)
+                 new MySqlParameter("@enCode",enCode)
             };
             return this.FindList(strSql.ToString(), parameter);
         }

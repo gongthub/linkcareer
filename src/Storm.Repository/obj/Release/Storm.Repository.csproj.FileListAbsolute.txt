@@ -23,3 +23,6 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Release\Storm.Repository
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Release\Storm.Repository.pdb
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Release\MySql.Data.Entity.EF6.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Release\MySql.Data.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Release\Storm.Repository.dll.config
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Release\EntityFramework.SqlServer.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Release\EntityFramework.SqlServer.xml

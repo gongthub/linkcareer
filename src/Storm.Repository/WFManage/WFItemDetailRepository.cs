@@ -1,4 +1,5 @@
-﻿using Storm.Data;
+﻿using MySql.Data.MySqlClient;
+using Storm.Data;
 using Storm.Domain.Entity.WFManage;
 using Storm.Domain.IRepository.WFManage;
 using System;
@@ -25,7 +26,7 @@ namespace Storm.Repository.WFManage
                             ORDER BY d.SortCode ASC");
             DbParameter[] parameter = 
             {
-                 new SqlParameter("@enCode",enCode)
+                 new MySqlParameter("@enCode",enCode)
             };
             List < WFItemDetailEntity > models= this.FindList(strSql.ToString(), parameter);
             if (models != null)
@@ -46,7 +47,7 @@ namespace Storm.Repository.WFManage
                             ORDER BY d.SortCode ASC");
             DbParameter[] parameter = 
             {
-                 new SqlParameter("@Id",itemId)
+                 new MySqlParameter("@Id",itemId)
             };
             List<WFItemDetailEntity> models = this.FindList(strSql.ToString(), parameter);
             if (models != null)

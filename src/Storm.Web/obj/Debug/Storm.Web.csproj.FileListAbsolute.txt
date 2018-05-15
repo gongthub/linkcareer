@@ -277,3 +277,4 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.csproj.CoreComp
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.csproj.CopyComplete
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.pdb
+D:\MyFiles\Projects\linkcareer\src\Storm.Web\bin\Storm.Repository.dll.config
