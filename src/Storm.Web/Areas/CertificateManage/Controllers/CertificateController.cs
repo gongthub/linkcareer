@@ -74,19 +74,24 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
         {
             try
             {
+                string message = "导入成功！";
                 if (HttpContext.Request.Files.Count > 0)
                 {
                     var upFiles = HttpContext.Request.Files;
                     if (upFiles != null)
                     {
-                        certificateApp.UploadFiles(upFiles);
+                        string messageres = certificateApp.UploadFiles(upFiles);
+                        if (!string.IsNullOrEmpty(messageres))
+                        {
+                            message = message + "身份证号：" + messageres + "已存在！";
+                        }
                     }
                 }
                 else
                 {
                     return Success("false", "必须选择一个文件");
                 }
-                return Success("true");
+                return Success("true", message);
 
             }
             catch (Exception ex)
@@ -101,7 +106,7 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
         {
             MemoryStream ms = new MemoryStream();
             ms = certificateApp.ExportExcel();
-           string sheetName = HttpUtility.UrlEncode("证书", System.Text.Encoding.UTF8);
+            string sheetName = HttpUtility.UrlEncode("证书", System.Text.Encoding.UTF8);
             HttpContext.Response.AppendHeader("Content-Disposition", "attachment;filename=" + sheetName + ".xlsx");
             HttpContext.Response.BinaryWrite(ms.ToArray());
             HttpContext.Response.End();

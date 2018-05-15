@@ -62,6 +62,14 @@ namespace Storm.Application.CertificateManage
                 certificateEntity = new CertificateEntity();
             return certificateEntity;
         }
+        public CertificateEntity GetFormByIdCard(string idCard)
+        {
+            CertificateEntity certificateEntity = service.IQueryable(m => m.DeleteMark != true
+            && m.IdCard == idCard).OrderBy(t => t.CreatorTime).FirstOrDefault();
+            if (certificateEntity == null)
+                certificateEntity = new CertificateEntity();
+            return certificateEntity;
+        }
         public void DeleteForm(string keyValue)
         {
             service.DeleteById(t => t.Id == keyValue);
@@ -79,18 +87,20 @@ namespace Storm.Application.CertificateManage
                 service.Insert(certificateEntity);
             }
         }
-        public void AddForm(CertificateEntity certificateEntity)
+        public string AddForm(CertificateEntity certificateEntity)
         {
-            CertificateEntity certificateEntityT = GetForm(certificateEntity.FullName, certificateEntity.IdCard);
-            if (certificateEntityT == null || string.IsNullOrEmpty(certificateEntityT.Id))
-            {
-                certificateEntityT = GetFormByNumber(certificateEntity.Number);
-            }
+            string message = string.Empty;
+            CertificateEntity certificateEntityT = GetFormByIdCard(certificateEntity.IdCard);
             if (certificateEntityT == null || string.IsNullOrEmpty(certificateEntityT.Id))
             {
                 certificateEntity.Create();
                 service.Insert(certificateEntity);
             }
+            else
+            {
+                message = certificateEntity.IdCard;
+            }
+            return message;
         }
 
         public MemoryStream ExportExcel()
@@ -105,11 +115,11 @@ namespace Storm.Application.CertificateManage
             return ms;
         }
 
-        public List<CertificateEntity> UploadFiles(HttpFileCollectionBase Files)
+        public string UploadFiles(HttpFileCollectionBase Files)
         {
             try
             {
-                List<CertificateEntity> models = new List<CertificateEntity>();
+                string message = string.Empty;
                 if (Files != null && Files.Count > 0)
                 {
                     string basePath = Code.FileHelper.BasePath;
@@ -140,10 +150,10 @@ namespace Storm.Application.CertificateManage
                         Code.FileHelper.CreateDirectory(fullPaths);
 
                         Files[i].SaveAs(fullPaths + saveName);
-                        ImportExcel(fullPaths + saveName);
+                        message = ImportExcel(fullPaths + saveName);
                     }
                 }
-                return models;
+                return message;
             }
             catch
             {
@@ -158,16 +168,23 @@ namespace Storm.Application.CertificateManage
             return strPath;
         }
 
-        private void ImportExcel(string filePaths)
+        private string ImportExcel(string filePaths)
         {
+            string messageres = string.Empty;
+            string message = string.Empty;
             List<CertificateEntity> models = GetExcelModels(filePaths);
             if (models != null && models.Count > 0)
             {
                 foreach (CertificateEntity model in models)
                 {
-                    AddForm(model);
+                    message = AddForm(model);
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        messageres += message + ",";
+                    }
                 }
             }
+            return messageres;
         }
 
         private List<CertificateEntity> GetExcelModels(string filePaths)

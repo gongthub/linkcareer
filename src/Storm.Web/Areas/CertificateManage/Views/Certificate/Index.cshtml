@@ -112,8 +112,8 @@
             success: function (data) {
                 var jsonData = eval(data);
                 if (jsonData.message == "true") {
-                    alert("导入成功");
-                    $("#btn_search").click();
+                    alert(jsonData.data);
+                    $.reload()
                 } else {
                     alert(jsonData.data);
                     return;
@@ -136,6 +136,9 @@
         </div>
         <div class="btn-group">
             <a id="NF-export" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_export()">导出</a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-temple" authorize="yes" class="btn btn-primary dropdown-text" href="~/Resource/模板.xlsx" download>下载模板</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
