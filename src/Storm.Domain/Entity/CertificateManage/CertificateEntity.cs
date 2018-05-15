@@ -13,6 +13,7 @@ namespace Storm.Domain.Entity.CertificateManage
         public string FullName { get; set; }
         public int? Gender { get; set; }
         public string IdCard { get; set; }
+        public string ProjectType { get; set; }
         public string ProjectName { get; set; }
         public string Number { get; set; }
         public DateTime? CertificationTime { get; set; }
@@ -25,5 +26,32 @@ namespace Storm.Domain.Entity.CertificateManage
         public string LastModifyUserId { get; set; }
         public DateTime? DeleteTime { get; set; }
         public string DeleteUserId { get; set; }
+    }
+
+
+    public class CertificateImportEntity 
+    {
+        public string Id { get; set; }
+        public int? SortCode { get; set; }
+        public string FullName { get; set; }
+        public int? Gender { get; set; }
+        public string IdCard { get; set; }
+        public string ProjectType { get; set; }
+        public string ProjectName { get; set; }
+        public string Number { get; set; }
+        public DateTime? CertificationTime { get; set; }
+        public bool IsQualified { get; set; }
+    }
+    public class CertificateShowEntity
+    {
+        public string Id { get; set; }
+        public int? SortCode { get; set; }
+        public string FullName { get; set; }
+        public string Gender { get; set; }
+        public string IdCard { get; set; }
+        public string ProjectType { get; set; }
+        public string ProjectName { get; set; }
+        public string Number { get; set; }
+        public string CertificationTime { get; set; }
     }
 }

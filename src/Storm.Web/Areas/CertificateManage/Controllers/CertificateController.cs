@@ -1,4 +1,5 @@
-﻿using Storm.Application.CertificateManage;
+﻿using Newtonsoft.Json;
+using Storm.Application.CertificateManage;
 using Storm.Code;
 using Storm.Domain.Entity.CertificateManage;
 using System;
@@ -13,7 +14,7 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
     public class CertificateController : ControllerBase
     {
         private CertificateApp certificateApp = new CertificateApp();
-        
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
@@ -51,6 +52,19 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
             certificateApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitImport()
+        {
+            List<CertificateImportEntity> models = new List<CertificateImportEntity>();
+            if (Session["importmodels"] != null)
+            {
+                models = (List<CertificateImportEntity>)Session["importmodels"];
+                certificateApp.AddForms(models);
+            }
+            return Success("操作成功。");
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -67,6 +81,23 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
             var data = certificateApp.GetFormByNumber(number);
             return Content(data.ToJson());
         }
+        [HttpGet]
+        public ActionResult ImportView()
+        {
+            return View();
+        }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetImportGridJson(string keyword)
+        {
+            List<CertificateImportEntity> models = new List<CertificateImportEntity>();
+            if (Session["importmodels"] != null)
+            {
+                models = (List<CertificateImportEntity>)Session["importmodels"];
+            }
+            models = models.OrderBy(m => m.IsQualified).ThenBy(m => m.Number).ToList();
+            return Content(models.ToJson());
+        }
 
         [HttpPost]
         [HandlerAuthorize]
@@ -74,24 +105,28 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
         {
             try
             {
-                string message = "导入成功！";
+                List<CertificateImportEntity> models = new List<CertificateImportEntity>();
                 if (HttpContext.Request.Files.Count > 0)
                 {
                     var upFiles = HttpContext.Request.Files;
                     if (upFiles != null)
                     {
-                        string messageres = certificateApp.UploadFiles(upFiles);
-                        if (!string.IsNullOrEmpty(messageres))
-                        {
-                            message = message + "身份证号：" + messageres + "已存在！";
-                        }
+                        models = certificateApp.UploadFiles(upFiles);
                     }
                 }
                 else
                 {
                     return Success("false", "必须选择一个文件");
                 }
-                return Success("true", message);
+                Session["importmodels"] = models;
+                if (models != null && models.Count > 0)
+                {
+                    return Success("true", "上传成功！");
+                }
+                else
+                {
+                    return Success("false", "上传数据为空！");
+                }
 
             }
             catch (Exception ex)

@@ -278,3 +278,4 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.csproj.CopyComp
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\obj\Debug\Storm.Web.pdb
 D:\MyFiles\Projects\linkcareer\src\Storm.Web\bin\Storm.Repository.dll.config
+E:\WorkFiles\Project\GIT\linkcareer\src\Storm.Web\bin\Storm.Repository.dll.config

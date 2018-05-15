@@ -1070,6 +1070,7 @@
     <Content Include="Resource\模板.xlsx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\CertificateManage\Views\Certificate\ImportView.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Main\NoFind.cshtml" />
   </ItemGroup>

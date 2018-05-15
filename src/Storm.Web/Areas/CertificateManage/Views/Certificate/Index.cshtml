@@ -13,10 +13,10 @@
             height: $(window).height() - 96,
             colModel: [
                 { label: "主键", name: "Id", hidden: true, key: true },
-                { label: '序号', name: 'SortCode', width: 50, align: 'left' },
-                { label: '姓名', name: 'FullName', width: 120, align: 'left' },
+                { label: '序号', name: 'SortCode', width: 30, align: 'left' },
+                { label: '姓名', name: 'FullName', width: 60, align: 'left' },
                 {
-                    label: '性别', name: 'Gender', width: 80, align: 'center',
+                    label: '性别', name: 'Gender', width: 60, align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
                             return '男';
@@ -26,15 +26,20 @@
                     }
                 },
                 { label: '身份证', name: 'IdCard', width: 150, align: 'left' },
-                { label: '项目名称', name: 'ProjectName', width: 180, align: 'left' },
-                { label: '证书编号', name: 'Number', width: 180, align: 'left' },
+                { label: '项目名称', name: 'ProjectName', width: 150, align: 'left' },
+                { label: '证书类型', name: 'ProjectType', width: 150, align: 'left' },
+                { label: '证书编号', name: 'Number', width: 150, align: 'left' },
                 {
                     label: '发证时间', name: 'CertificationTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                },
+                {
+                    label: '导入时间', name: 'CreatorTime', width: 120, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d h:i;s', newformat: 'Y-m-d h:i;s' }
                 }
             ],
             pager: "#gridPager",
-            sortname: 'SortCode asc',
+            sortname: 'Number asc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -112,12 +117,24 @@
             success: function (data) {
                 var jsonData = eval(data);
                 if (jsonData.message == "true") {
-                    alert(jsonData.data);
-                    $.reload()
+                    importConfirm();
+                    $.reload();
                 } else {
                     alert(jsonData.data);
                     return;
                 }
+            }
+        });
+    }
+    function importConfirm() {
+        $.modalShowFull({
+            id: "importConfirm",
+            title: "确认上传",
+            url: "/CertificateManage/Certificate/ImportView",
+            width: "650px",
+            height: "700px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
             }
         });
     }

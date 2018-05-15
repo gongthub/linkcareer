@@ -33,6 +33,7 @@ namespace Storm.Application.CertificateManage
                 expression = expression.And(t => t.FullName.Contains(keyword));
                 expression = expression.Or(t => t.IdCard.Contains(keyword));
                 expression = expression.Or(t => t.ProjectName.Contains(keyword));
+                expression = expression.Or(t => t.ProjectType.Contains(keyword));
                 expression = expression.Or(t => t.Number.Contains(keyword));
             }
             expression = expression.And(t => t.DeleteMark != true);
@@ -53,6 +54,12 @@ namespace Storm.Application.CertificateManage
             if (certificateEntity == null)
                 certificateEntity = new CertificateEntity();
             return certificateEntity;
+        }
+        public List<CertificateEntity> GetForms(string name, string idCard)
+        {
+            List<CertificateEntity> certificateEntitys = service.IQueryable(m => m.DeleteMark != true
+            && m.FullName == name && m.IdCard == idCard).OrderBy(t => t.CreatorTime).ToList();
+            return certificateEntitys;
         }
         public CertificateEntity GetFormByNumber(string number)
         {
@@ -77,10 +84,14 @@ namespace Storm.Application.CertificateManage
         public void SubmitForm(CertificateEntity certificateEntity, string keyValue)
         {
             List<CertificateEntity> models = GetList();
-            models = models.Where(m => m.IdCard == certificateEntity.IdCard && m.Id != keyValue).ToList();
-            if (models != null && models.Count > 0)
+            List<CertificateEntity> modelsT = models.Where(m => m.IdCard == certificateEntity.IdCard && m.Id != keyValue).ToList();
+            if (modelsT != null && modelsT.Count > 0)
             {
-                throw new Exception("身份证号已存在，请重新输入！");
+                List<CertificateEntity> modelsT2 = modelsT.Where(m => m.Number == certificateEntity.Number && m.Id != keyValue).ToList();
+                if (modelsT2 != null && modelsT2.Count > 0)
+                {
+                    throw new Exception("相同身份证号下证件编号已存在，请重新输入！");
+                }
             }
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -93,20 +104,42 @@ namespace Storm.Application.CertificateManage
                 service.Insert(certificateEntity);
             }
         }
-        public string AddForm(CertificateEntity certificateEntity)
+        public void AddForms(List<CertificateImportEntity> mdoels)
         {
-            string message = string.Empty;
-            CertificateEntity certificateEntityT = GetFormByIdCard(certificateEntity.IdCard);
-            if (certificateEntityT == null || string.IsNullOrEmpty(certificateEntityT.Id))
+            if (mdoels != null && mdoels.Count > 0)
             {
-                certificateEntity.Create();
-                service.Insert(certificateEntity);
+                foreach (CertificateImportEntity item in mdoels)
+                {
+                    if (item.IsQualified == true)
+                    {
+                        CertificateEntity certificateEntity = new CertificateEntity();
+                        certificateEntity.SortCode = item.SortCode;
+                        certificateEntity.FullName = item.FullName;
+                        certificateEntity.Gender = item.Gender;
+                        certificateEntity.IdCard = item.IdCard;
+                        certificateEntity.ProjectType = item.ProjectType;
+                        certificateEntity.ProjectName = item.ProjectName;
+                        certificateEntity.Number = item.Number;
+                        certificateEntity.CertificationTime = item.CertificationTime;
+                        AddForm(certificateEntity);
+                    }
+                }
             }
-            else
+        }
+        public void AddForm(CertificateEntity certificateEntity)
+        {
+            List<CertificateEntity> models = GetList();
+            List<CertificateEntity> modelsT = models.Where(m => m.IdCard == certificateEntity.IdCard).ToList();
+            if (modelsT != null && modelsT.Count > 0)
             {
-                message = certificateEntity.IdCard;
+                List<CertificateEntity> modelsT2 = modelsT.Where(m => m.Number == certificateEntity.Number).ToList();
+                if (modelsT2 != null && modelsT2.Count > 0)
+                {
+                    return;
+                }
             }
-            return message;
+            certificateEntity.Create();
+            service.Insert(certificateEntity);
         }
 
         public MemoryStream ExportExcel()
@@ -121,11 +154,11 @@ namespace Storm.Application.CertificateManage
             return ms;
         }
 
-        public string UploadFiles(HttpFileCollectionBase Files)
+        public List<CertificateImportEntity> UploadFiles(HttpFileCollectionBase Files)
         {
             try
             {
-                string message = string.Empty;
+                List<CertificateImportEntity> models = new List<CertificateImportEntity>();
                 if (Files != null && Files.Count > 0)
                 {
                     string basePath = Code.FileHelper.BasePath;
@@ -156,10 +189,10 @@ namespace Storm.Application.CertificateManage
                         Code.FileHelper.CreateDirectory(fullPaths);
 
                         Files[i].SaveAs(fullPaths + saveName);
-                        message = ImportExcel(fullPaths + saveName);
+                        models = ImportExcel(fullPaths + saveName);
                     }
                 }
-                return message;
+                return models;
             }
             catch
             {
@@ -174,49 +207,71 @@ namespace Storm.Application.CertificateManage
             return strPath;
         }
 
-        private string ImportExcel(string filePaths)
+        private List<CertificateImportEntity> ImportExcel(string filePaths)
         {
             string messageres = string.Empty;
             string message = string.Empty;
-            List<CertificateEntity> models = GetExcelModels(filePaths);
+            List<CertificateImportEntity> models = GetExcelModels(filePaths);
             if (models != null && models.Count > 0)
             {
-                foreach (CertificateEntity model in models)
+                foreach (CertificateImportEntity item in models)
                 {
-                    message = AddForm(model);
-                    if (!string.IsNullOrEmpty(message))
+                    item.Id = Guid.NewGuid().ToString();
+                    if (item.IsQualified == true)
                     {
-                        messageres += message + ",";
+                        List<CertificateEntity> modelsAll = GetList();
+                        List<CertificateEntity> modelsT = modelsAll.Where(m => m.IdCard == item.IdCard).ToList();
+                        if (modelsT != null && modelsT.Count > 0)
+                        {
+                            List<CertificateEntity> modelsT2 = modelsT.Where(m => m.Number == item.Number).ToList();
+                            if (modelsT2 != null && modelsT2.Count > 0)
+                            {
+                                item.IsQualified = false;
+                            }
+                        }
                     }
                 }
             }
-            return messageres;
+            return models;
         }
 
-        private List<CertificateEntity> GetExcelModels(string filePaths)
+        private List<CertificateImportEntity> GetExcelModels(string filePaths)
         {
             try
             {
-                List<CertificateEntity> models = new List<CertificateEntity>();
+                List<CertificateImportEntity> models = new List<CertificateImportEntity>();
                 DataTable tables = ExcelHelper.ExcelToTableForXLSX2(filePaths);
                 if (tables != null && tables.Rows != null && tables.Rows.Count > 0)
                 {
                     foreach (DataRow item in tables.Rows)
                     {
-                        CertificateEntity certificateEntity = new CertificateEntity();
-                        if (item[0] != null)
+                        CertificateImportEntity certificateEntity = new CertificateImportEntity();
+                        certificateEntity.IsQualified = true;
+                        if (item[0] == null || string.IsNullOrEmpty(item[0].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string sortCodes = item[0].ToString();
                             int sortCode = 0;
                             if (int.TryParse(sortCodes, out sortCode))
                                 certificateEntity.SortCode = sortCode;
                         }
-                        if (item[1] != null)
+                        if (item[1] == null || string.IsNullOrEmpty(item[1].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string fullName = item[1].ToString();
                             certificateEntity.FullName = fullName;
                         }
-                        if (item[2] != null)
+                        if (item[2] == null || string.IsNullOrEmpty(item[2].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string genders = item[2].ToString();
                             if (genders == "男")
@@ -228,24 +283,49 @@ namespace Storm.Application.CertificateManage
                                 certificateEntity.Gender = 1;
                             }
                         }
-                        if (item[3] != null)
+                        if (item[3] == null || string.IsNullOrEmpty(item[3].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string str = item[3].ToString();
                             certificateEntity.IdCard = str;
                         }
-                        if (item[4] != null)
+                        if (item[4] == null || string.IsNullOrEmpty(item[4].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string str = item[4].ToString();
                             certificateEntity.ProjectName = str;
                         }
-                        if (item[5] != null)
+                        if (item[5] == null || string.IsNullOrEmpty(item[5].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string str = item[5].ToString();
-                            certificateEntity.Number = str;
+                            certificateEntity.ProjectType = str;
                         }
-                        if (item[6] != null)
+                        if (item[6] == null || string.IsNullOrEmpty(item[6].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
                         {
                             string str = item[6].ToString();
+                            certificateEntity.Number = str;
+                        }
+                        if (item[7] == null || string.IsNullOrEmpty(item[7].ToString()))
+                        {
+                            certificateEntity.IsQualified = false;
+                        }
+                        else
+                        {
+                            string str = item[7].ToString();
                             DateTime dateTime = DateTime.Now;
                             if (DateTime.TryParse(str, out dateTime))
                                 certificateEntity.CertificationTime = dateTime;
@@ -289,14 +369,15 @@ namespace Storm.Application.CertificateManage
                 }
                 dataRow[3] = model.IdCard;
                 dataRow[4] = model.ProjectName;
-                dataRow[5] = model.Number;
+                dataRow[5] = model.ProjectType;
+                dataRow[6] = model.Number;
                 if (model.CertificationTime != null)
                 {
-                    dataRow[6] = ((DateTime)model.CertificationTime).ToString("yyyy-MM-dd");
+                    dataRow[7] = ((DateTime)model.CertificationTime).ToString("yyyy-MM-dd");
                 }
                 else
                 {
-                    dataRow[6] = "";
+                    dataRow[7] = "";
                 }
                 dt.Rows.Add(dataRow);
             }
@@ -315,6 +396,7 @@ namespace Storm.Application.CertificateManage
             dataTable.Columns.Add(new DataColumn("性别"));
             dataTable.Columns.Add(new DataColumn("身份证号"));
             dataTable.Columns.Add(new DataColumn("项目名称"));
+            dataTable.Columns.Add(new DataColumn("证书类型"));
             dataTable.Columns.Add(new DataColumn("证书编号"));
             dataTable.Columns.Add(new DataColumn("发证时间"));
             return dataTable;
