@@ -79,6 +79,20 @@ namespace Storm.Application.CertificateManage
                 service.Insert(certificateEntity);
             }
         }
+        public void AddForm(CertificateEntity certificateEntity)
+        {
+            CertificateEntity certificateEntityT = GetForm(certificateEntity.FullName, certificateEntity.IdCard);
+            if (certificateEntityT == null || string.IsNullOrEmpty(certificateEntityT.Id))
+            {
+                certificateEntityT = GetFormByNumber(certificateEntity.Number);
+            }
+            if (certificateEntityT == null || string.IsNullOrEmpty(certificateEntityT.Id))
+            {
+                certificateEntity.Create();
+                service.Insert(certificateEntity);
+            }
+        }
+
         public MemoryStream ExportExcel()
         {
             MemoryStream ms = new MemoryStream();
@@ -119,7 +133,7 @@ namespace Storm.Application.CertificateManage
                         {
                             throw new Exception("上传文件不合法，只能上传.xlsx文件");
                         }
-                        string saveName = fileName + fileExtension; // 保存文件名称
+                        string saveName = fileName; // 保存文件名称
                         string fileDirPaths = upPaths + "/" + controlIds + "/";
                         string filePaths = fileDirPaths + saveName;
                         string fullPaths = basePath + fileDirPaths;
@@ -147,27 +161,81 @@ namespace Storm.Application.CertificateManage
         private void ImportExcel(string filePaths)
         {
             List<CertificateEntity> models = GetExcelModels(filePaths);
+            if (models != null && models.Count > 0)
+            {
+                foreach (CertificateEntity model in models)
+                {
+                    AddForm(model);
+                }
+            }
         }
 
         private List<CertificateEntity> GetExcelModels(string filePaths)
         {
-            List<CertificateEntity> models = new List<CertificateEntity>();
-            DataTable tables = ExcelHelper.ExcelToTableForXLSX(filePaths);
-            if (tables != null && tables.Rows != null && tables.Rows.Count > 0)
+            try
             {
-                foreach (DataRow item in tables.Rows)
+                List<CertificateEntity> models = new List<CertificateEntity>();
+                DataTable tables = ExcelHelper.ExcelToTableForXLSX2(filePaths);
+                if (tables != null && tables.Rows != null && tables.Rows.Count > 0)
                 {
-                    CertificateEntity certificateEntity = new CertificateEntity();
-                    if (item[0] != null)
+                    foreach (DataRow item in tables.Rows)
                     {
-                        string sortCodes = item[0].ToString();
-                        int sortCode = 0;
-                        if (int.TryParse(sortCodes, out sortCode))
-                            certificateEntity.SortCode = sortCode;
+                        CertificateEntity certificateEntity = new CertificateEntity();
+                        if (item[0] != null)
+                        {
+                            string sortCodes = item[0].ToString();
+                            int sortCode = 0;
+                            if (int.TryParse(sortCodes, out sortCode))
+                                certificateEntity.SortCode = sortCode;
+                        }
+                        if (item[1] != null)
+                        {
+                            string fullName = item[1].ToString();
+                            certificateEntity.FullName = fullName;
+                        }
+                        if (item[2] != null)
+                        {
+                            string genders = item[2].ToString();
+                            if (genders == "男")
+                            {
+                                certificateEntity.Gender = 0;
+                            }
+                            else
+                            {
+                                certificateEntity.Gender = 1;
+                            }
+                        }
+                        if (item[3] != null)
+                        {
+                            string str = item[3].ToString();
+                            certificateEntity.IdCard = str;
+                        }
+                        if (item[4] != null)
+                        {
+                            string str = item[4].ToString();
+                            certificateEntity.ProjectName = str;
+                        }
+                        if (item[5] != null)
+                        {
+                            string str = item[5].ToString();
+                            certificateEntity.Number = str;
+                        }
+                        if (item[6] != null)
+                        {
+                            string str = item[6].ToString();
+                            DateTime dateTime = DateTime.Now;
+                            if (DateTime.TryParse(str, out dateTime))
+                                certificateEntity.CertificationTime = dateTime;
+                        }
+                        models.Add(certificateEntity);
                     }
                 }
+                return models;
             }
-            return models;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>

@@ -18,7 +18,7 @@
                 {
                     label: '性别', name: 'Gender', width: 80, align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue == true) {
+                        if (cellvalue == 0) {
                             return '男';
                         } else {
                             return '女';
@@ -112,8 +112,8 @@
             success: function (data) {
                 var jsonData = eval(data);
                 if (jsonData.message == "true") {
-
-                    alert(jsonData.data);
+                    alert("导入成功");
+                    $("#btn_search").click();
                 } else {
                     alert(jsonData.data);
                     return;
@@ -122,7 +122,6 @@
         });
     }
 </script>
-
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">

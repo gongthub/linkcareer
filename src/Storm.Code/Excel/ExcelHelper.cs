@@ -63,6 +63,57 @@ namespace Storm.Code
             }
             return dt;
         }
+
+        /// <summary>
+        /// 将Excel文件中的数据读出到DataTable中(xlsx)
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static DataTable ExcelToTableForXLSX2(string file)
+        {
+            DataTable dt = new DataTable();
+            using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read))
+            {
+                XSSFWorkbook xssfworkbook = new XSSFWorkbook(fs);
+                ISheet sheet = xssfworkbook.GetSheetAt(0);
+
+                //表头
+                IRow header = sheet.GetRow(sheet.FirstRowNum);
+                List<int> columns = new List<int>();
+                for (int i = 0; i < header.LastCellNum; i++)
+                {
+                    object obj = GetValueTypeForXLSX(header.GetCell(i) as XSSFCell);
+                    if (obj == null || obj.ToString() == string.Empty)
+                    {
+                        dt.Columns.Add(new DataColumn("Columns" + i.ToString()));
+                        //continue;
+                    }
+                    else
+                        dt.Columns.Add(new DataColumn(obj.ToString()));
+                    columns.Add(i);
+                }
+                //数据
+                for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
+                {
+                    DataRow dr = dt.NewRow();
+                    bool hasValue = false;
+                    foreach (int j in columns)
+                    {
+                        dr[j] = sheet.GetRow(i).GetCell(j).ToString();
+                        //dr[j] = GetValueTypeForXLSX(sheet.GetRow(i).GetCell(j) as XSSFCell);
+                        if (dr[j] != null && dr[j].ToString() != string.Empty)
+                        {
+                            hasValue = true;
+                        }
+                    }
+                    if (hasValue)
+                    {
+                        dt.Rows.Add(dr);
+                    }
+                }
+            }
+            return dt;
+        }
         /// <summary>
         /// 将DataTable数据导出到Excel文件中(xlsx)
         /// </summary>
@@ -152,7 +203,7 @@ namespace Storm.Code
             switch (cell.CellType)
             {
                 case CellType.Blank: //BLANK:
-                    return null;
+                    return cell.StringCellValue;
                 case CellType.Boolean: //BOOLEAN:
                     return cell.BooleanCellValue;
                 case CellType.Numeric: //NUMERIC:
