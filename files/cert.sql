@@ -25,6 +25,7 @@ CREATE TABLE `c_certificates` (
   `SortCode` int(11) DEFAULT NULL,
   `Gender` int(11) DEFAULT NULL,
   `IdCard` varchar(50) DEFAULT NULL,
+  `ProjectType` varchar(200) DEFAULT NULL,
   `ProjectName` varchar(200) DEFAULT NULL,
   `Number` varchar(50) DEFAULT NULL,
   `CertificationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
