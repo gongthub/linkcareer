@@ -1,0 +1,15 @@
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\Storm.Code.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\Storm.Code.pdb
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\log4net.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\Newtonsoft.Json.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\NPOI.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\NPOI.OOXML.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\NPOI.OpenXml4Net.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\NPOI.OpenXmlFormats.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\bin\Release\Newtonsoft.Json.xml
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Release\Storm.Code.csprojResolveAssemblyReference.cache
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Release\Storm.Code.csproj.CoreCompileInputs.cache
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Release\Storm.Code.csproj.CopyComplete
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Release\Storm.Code.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Release\Storm.Code.pdb

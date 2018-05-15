@@ -101,3 +101,5 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Application\obj\Debug\Storm.Application
 D:\MyFiles\Projects\linkcareer\src\Storm.Application\obj\Debug\Storm.Application.csproj.CopyComplete
 D:\MyFiles\Projects\linkcareer\src\Storm.Application\obj\Debug\Storm.Application.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Application\obj\Debug\Storm.Application.pdb
+D:\MyFiles\Projects\linkcareer\src\Storm.Application\bin\Debug\MySql.Data.Entity.EF6.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Application\bin\Debug\MySql.Data.dll

@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_FlowForm.cshtml";
+}
+<div style="padding-top: 20px; margin-right: 20px;">
+    <table class="form">
+        <tr>
+            <th class="formTitle">名称</th>
+            <td class="formValue">
+                <input id="txtName" name="Name" type="text" class="form-control required" placeholder="请输入名称" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">默认值</th>
+            <td class="formValue">
+                <div class="input-group">
+                    <input type="text" id="txtDefaultValue" name="DefaultValue" valuetype="0" class="form-control required" placeholder="请输入默认值" aria-describedby="spselect" />
+                    <span class="input-group-addon" id="spselect" style="cursor:pointer;" onclick="selDefault()">选择</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">宽度</th>
+            <td class="formValue">
+                <input id="txtWidth" name="Width" type="number" class="form-control required" placeholder="请输入宽度" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">高度</th>
+            <td class="formValue">
+                <input id="txtHeight" name="Height" type="number" class="form-control required" placeholder="请输入高度" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">
+                最大字符数
+            </th>
+            <td class="formValue">
+                <input id="txtMaxLength" name="MaxLength" type="number" class="form-control required" placeholder="请输入最大字符数" />
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">
+                是否只读
+            </th>
+            <td class="formValue">
+                <select id="selIsReadonly" class="form-control required">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th class="formTitle">
+                是否可空
+            </th>
+            <td class="formValue">
+                <select id="selIsNull" class="form-control required">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var oNode = null, thePlugins = 'formtextarea';
+    var attJSON = parent.formattributeJSON;
+    $(function () {
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+        }
+        if (oNode) {
+            $text = $(oNode);
+            $("#txtDefaultValue").val($text.attr('defaultvalue') || "");
+            var widthStr = $text.css('width');
+            if (widthStr) {
+                widthStr = widthStr.replace("px", "");
+                $("#txtWidth").val(widthStr);
+            }
+            if ($text.attr('isnull')) {
+                $("#selIsNull").val($text.attr('isnull'));
+            }
+            var heightStr = $text.css('height');
+            if (heightStr) {
+                heightStr = heightStr.replace("px", "");
+                $("#txtHeight").val(heightStr);
+            }
+            $("#txtMaxLength").val($text.attr('maxlength'));
+            $("#txtName").val($text.attr('name'));
+            if ($text.attr('readonly')) {
+                $("#selIsReadonly").val(1);
+            } else {
+                $("#selIsReadonly").val(0);
+            }
+            if ($text.attr('valuetype')) {
+                $("#txtDefaultValue").attr("valuetype", $text.attr('valuetype'));
+            } else {
+                $("#txtDefaultValue").attr("valuetype", 0);
+            }
+        }
+        $("#txtDefaultValue").change(function () {
+            $("#txtDefaultValue").attr("valuetype", 0);
+        });
+    });
+
+    dialog.oncancel = function () {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function () {
+        var timestamp = Date.parse(new Date());
+        var id = "txtarea_flow_" + timestamp;
+        var name = $("#txtName").val();
+        var width = $("#txtWidth").val();
+        var height = $("#txtHeight").val();
+        var defaultvalue = $("#txtDefaultValue").val();
+        var defaultValueType = $("#txtDefaultValue").attr("valuetype");
+        var maxlength = $("#txtMaxLength").val();
+        var isreadonly = $("#selIsReadonly").val();
+        var isnull = $("#selIsNull").val();
+        var otextarea = document.createElement('textarea');
+        otextarea.id = id;
+        $(otextarea).attr("type1", "flow_textarea");
+        $(otextarea).attr("class", "flowformcontrol");
+        $(otextarea).attr("name", name);
+        $(otextarea).attr("isnull", isnull);
+        otextarea.innerText = name;
+        if (width) {
+            $(otextarea).css("width", width + "px");
+        } else {
+            $(otextarea).css("width", "120px");
+        }
+        if (height) {
+            $(otextarea).css("height", height + "px");
+        } else {
+            $(otextarea).css("height", "120px");
+        }
+        if (isreadonly == 1) {
+            $(otextarea).attr("readonly", "readonly");
+        }
+        if (defaultValueType) {
+            $(otextarea).attr("valuetype", defaultValueType);
+        } else {
+            $(otextarea).attr("valuetype", 0);
+        }
+        $(otextarea).attr("defaultvalue", defaultvalue);
+        if (parseInt(maxlength) > 0) {
+            $(otextarea).attr("maxlength", maxlength);
+        }
+        if (oNode) {
+            $(oNode).after(otextarea.outerHTML);
+            domUtils.remove(oNode, false);
+        }
+        else {
+            editor.execCommand('insertHtml', otextarea.outerHTML);
+        }
+        delete UE.plugins[thePlugins].editdom;
+    }
+    function selDefault() {
+        $.modalOpen({
+            id: "ControlDefaultValue",
+            title: "选择默认选项",
+            url: "/WFManage/CustomControl/DefaultProgram",
+            width: "700px",
+            height: "500px",
+            callBack: function (iframeId) {
+                var selItem = top.frames[iframeId].getSelDefaut();
+                if (selItem != null && selItem.Value != null) {
+                    $("#txtDefaultValue").attr("valuetype", selItem.Value);
+                } else {
+                    $("#txtDefaultValue").attr("valuetype", 0);
+                }
+                $("#txtDefaultValue").val(selItem.Desc);
+            }
+        });
+    }
+</script>

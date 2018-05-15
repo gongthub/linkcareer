@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    var markName = $.request("markName");
+    $(function () {
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WFManage/Flow/GetStrategieFormJson",
+                data: { flowId: keyValue, markName: markName },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        } else {
+            var plots = $("#Plot").val();
+            $.modalClose();
+            return plots;
+        }
+    }
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">表达式</th>
+                <td class="formValue">
+                    <textarea id="Plot" name="Plot" class="form-control required" style="height:130px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle" valign="top" style="padding-top: 5px;">
+                    例：
+                </th>
+                <td class="formValue">
+                    ((#申请金额# > 100) && (#申请金额# < 200)) || (#申请人岗位# == "领导" )
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>

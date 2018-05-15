@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace Storm.Data
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class StormDbContext : DbContext
     {
         public StormDbContext()

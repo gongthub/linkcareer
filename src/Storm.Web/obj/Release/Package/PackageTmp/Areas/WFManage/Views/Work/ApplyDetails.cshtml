@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    var commondefault = [];
+    var commonfiles = [];
+    $(function () {
+        if (!!keyValue) {
+            getCommonDefaultValues();
+            $.ajax({
+                url: "/WFManage/Work/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data.Contents != null && data.Contents != undefined && data.Contents != "") {
+                        var codeStrs = data.Contents;
+                        $("#dvCentents").html(codeStrs);
+                        $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                        $("#form1").find('div.ckbox label').attr('for', '');
+                    }
+                }
+            });
+            getCommonDefaultValues();
+            initFiles();
+            initApproDesc();
+        }
+    });
+    function getCommonDefaultValues() {
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WFManage/Work/GetWorkFormResJson",
+                data: { workId: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    commondefault = data.controls;
+                    commonfiles = data.files;
+                }
+            });
+        }
+    }
+    function initFiles() {
+        if (commonfiles != null && commonfiles != undefined && commonfiles.length > 0) {
+            for (var i = 0; i < commonfiles.length; i++) {
+                var filemodel = commonfiles[i];
+                if (filemodel != null && filemodel != undefined) {
+                    var fileControl = $("#" + filemodel.ControlId)
+                    if (fileControl != null && fileControl != undefined) {
+                        var fileShow = "<span><a href='" + filemodel.Paths + "' download='" + filemodel.FullName + "' style='color:red;'>" + filemodel.FullName
+                            + "</a><br/></span>";
+                        fileControl.after(fileShow);
+                    }
+                }
+            }
+        }
+        var fileControls = $(".flowformfiles");
+        if (fileControls != null && fileControls != undefined && fileControls.length > 0) {
+            for (var i = 0; i < fileControls.length; i++) {
+                var filecontrol = fileControls[i];
+                if (filecontrol != null && filecontrol != undefined) {
+                    $(filecontrol).remove();
+                }
+            }
+        }
+    }
+    function initApproDesc()
+    {
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WFManage/Work/GetApproPocessridJson",
+                data: { workId: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data != null && data != undefined && data.length > 0)
+                    {
+                        for (var i = 0; i < data.length; i++) {
+                            var daTemp = data[i];
+                            var strHtmls = "<tr><td class='dvApproDescTitle'>" + daTemp.NodeName
+                                + "</td><td class='dvApproDescText'><div><div>" + daTemp.Description
+                                + "</div><br /><div class='dvApproDescTextuser'>" + daTemp.ApprovalUserName
+                                + "[" + daTemp.CreatorTime + "]</div></div></td></tr>";
+                            $("#dvApproDescContenttbs").append(strHtmls);
+                        }
+                    }
+                }
+            });
+        }
+
+    }
+</script>
+<style type="text/css">
+    #dvMain {
+        margin: 20px;
+        border: 1px solid black;
+    }
+
+    #dvApproDesc {
+        margin-top: 30px;
+        border-top: 1px solid black;
+    }
+
+    #dvApproDescContents {
+        margin: 0 auto;
+        width: 90%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+        #dvApproDescContents table {
+            margin: 0 auto;
+            width: 100%;
+            border: 1px solid black;
+        }
+
+            #dvApproDescContents table tr td {
+                border: 1px solid black;
+            }
+
+        #dvApproDescContents .dvApproDescTitle {
+            width: 20%;
+            height:100px;
+            font-size:18px;
+            text-align:center;
+            background-color:#dbd7d6;
+        }
+        #dvApproDescContents .dvApproDescText div {
+            width:96%;
+            margin: 0 auto;
+        }
+        #dvApproDescContents .dvApproDescTextuser{
+            text-align:right;
+        }
+</style>
+<form id="form1">
+    <div id="dvMain">
+        <div id="dvCentents" name="dvCentents" style="margin:0 auto;width:90%;margin-top:20px;" class="form">
+        </div>
+        <div id="dvApproDesc">
+            <div id="dvApproDescContents">
+                <h3>处理意见</h3>
+                <table id="dvApproDescContenttbs">
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

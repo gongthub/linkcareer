@@ -96,3 +96,5 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Debug\Storm.Repository.c
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Debug\Storm.Repository.csproj.CopyComplete
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Debug\Storm.Repository.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Repository\obj\Debug\Storm.Repository.pdb
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\MySql.Data.Entity.EF6.dll
+D:\MyFiles\Projects\linkcareer\src\Storm.Repository\bin\Debug\MySql.Data.dll
