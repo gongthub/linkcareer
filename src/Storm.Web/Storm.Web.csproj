@@ -853,6 +853,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\ueditor\net\Bin\" />
+    <Folder Include="Resource\DbBackup\" />
     <Folder Include="Resource\WFFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -878,8 +879,6 @@
     <Content Include="Content\js\simditor\css\editor.scss" />
     <Content Include="Content\js\simditor\css\fonticon.scss" />
     <Content Include="Content\js\simditor\css\simditor.scss" />
-    <Content Include="Resource\DbBackup\201607181640402083.bak" />
-    <Content Include="Resource\DbBackup\201607190929504502.bak" />
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
