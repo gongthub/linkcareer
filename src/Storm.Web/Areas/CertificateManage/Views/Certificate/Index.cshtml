@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
+    var projectType = $.request("projectType");
     $(function () {
         gridList();
     })
@@ -10,13 +11,15 @@
         var $gridList = $("#gridList");
         $gridList.dataGrid({
             url: "/CertificateManage/Certificate/GetGridJson",
+            postData: { projectType: projectType },
             height: $(window).height() - 96,
+            multiselect: true,//复选框 
             colModel: [
                 { label: "主键", name: "Id", hidden: true, key: true },
-                { label: '序号', name: 'SortCode', width: 50, align: 'left' },
-                { label: '姓名', name: 'FullName', width: 120, align: 'left' },
+                { label: '序号', name: 'SortCode', width: 30, align: 'left' },
+                { label: '姓名', name: 'FullName', width: 60, align: 'left' },
                 {
-                    label: '性别', name: 'Gender', width: 80, align: 'center',
+                    label: '性别', name: 'Gender', width: 60, align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
                             return '男';
@@ -26,20 +29,24 @@
                     }
                 },
                 { label: '身份证', name: 'IdCard', width: 150, align: 'left' },
-                { label: '项目名称', name: 'ProjectName', width: 180, align: 'left' },
-                { label: '证书编号', name: 'Number', width: 180, align: 'left' },
+                { label: '证书类型', name: 'ProjectName', width: 150, align: 'left' },
+                { label: '证书编号', name: 'Number', width: 150, align: 'left' },
                 {
                     label: '发证时间', name: 'CertificationTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                },
+                {
+                    label: '导入时间', name: 'CreatorTime', width: 120, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d h:i;s', newformat: 'Y-m-d h:i;s' }
                 }
             ],
             pager: "#gridPager",
-            sortname: 'SortCode asc',
+            sortname: 'Number asc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
-                postData: { keyword: $("#txt_keyword").val() },
+                postData: { keyword: $("#txt_keyword").val(), projectType: projectType },
             }).trigger('reloadGrid');
         });
     }
@@ -47,7 +54,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增证书",
-            url: "/CertificateManage/Certificate/Form",
+            url: "/CertificateManage/Certificate/Form?projectType=" + projectType,
             width: "450px",
             height: "430px",
             callBack: function (iframeId) {
@@ -56,11 +63,21 @@
         });
     }
     function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().Id;
+        //获取多选到的id集合
+        var ids = $("#gridList").jqGrid("getGridParam", "selarrrow");
+        if (ids == "") {
+            alert("请选择一条数据!");
+            return;
+        }
+        if (ids.length > 1) {
+            alert("只能选择一条数据!");
+            return;
+        }
+        var keyValue = ids[0];
         $.modalOpen({
             id: "Form",
             title: "修改证书",
-            url: "/CertificateManage/Certificate/Form?keyValue=" + keyValue,
+            url: "/CertificateManage/Certificate/Form?keyValue=" + keyValue + "&projectType=" + projectType,
             width: "450px",
             height: "430px",
             callBack: function (iframeId) {
@@ -69,16 +86,32 @@
         });
     }
     function btn_delete() {
+        //获取多选到的id集合
+        var ids = $("#gridList").jqGrid("getGridParam", "selarrrow");
+        if (ids == "") {
+            alert("请选择一条数据!");
+            return;
+        }
         $.deleteForm({
             url: "/CertificateManage/Certificate/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().Id },
+            param: { ids: ids.toString()},
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().Id;
+        //获取多选到的id集合
+        var ids = $("#gridList").jqGrid("getGridParam", "selarrrow");
+        if (ids == "") {
+            alert("请选择一条数据!");
+            return;
+        }
+        if (ids.length>1) {
+            alert("只能选择一条数据!");
+            return;
+        }
+        var keyValue = ids[0];
         $.modalOpen({
             id: "Details",
             title: "查看证书",
@@ -94,14 +127,14 @@
     }
     //导出
     function btn_export() {
-        document.location.href = "/CertificateManage/Certificate/Export";
+        document.location.href = "/CertificateManage/Certificate/Export?projectType=" + projectType;
     }
     function improtExcel() {
         var formData = new FormData();
         formData.append("files", $("#hdFiles")[0].files[0]);
         $.ajax({
             type: "POST",
-            url: "/CertificateManage/Certificate/Import",
+            url: "/CertificateManage/Certificate/Import?projectType=" + projectType,
             dataType: "json",
             data: formData,
             async: false,
@@ -112,12 +145,24 @@
             success: function (data) {
                 var jsonData = eval(data);
                 if (jsonData.message == "true") {
-                    alert(jsonData.data);
-                    $.reload()
+                    importConfirm();
+                    $.reload();
                 } else {
                     alert(jsonData.data);
                     return;
                 }
+            }
+        });
+    }
+    function importConfirm() {
+        $.modalShowFull({
+            id: "importConfirm",
+            title: "确认上传",
+            url: "/CertificateManage/Certificate/ImportView",
+            width: "650px",
+            height: "700px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].SubmitImport()
             }
         });
     }

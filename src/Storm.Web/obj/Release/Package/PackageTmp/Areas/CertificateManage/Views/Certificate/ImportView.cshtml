@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/CertificateManage/Certificate/GetImportGridJson",
+            height: $(window).height() - 96,
+            colModel: [
+                { label: "主键", name: "Id", hidden: true, key: true },
+                { label: '序号', name: 'SortCode', width: 50, align: 'left' },
+                { label: '姓名', name: 'FullName', width: 80, align: 'left' },
+                {
+                    label: '性别', name: 'Gender', width: 50, align: 'center',
+                    formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue == 0) {
+                            return '男';
+                        } else {
+                            return '女';
+                        }
+                    }
+                },
+                { label: '身份证', name: 'IdCard', width: 150, align: 'left' },
+                { label: '项目名称', name: 'ProjectName', width: 150, align: 'left' },
+                { label: '证书类型', name: 'ProjectType', width: 150, align: 'left' },
+                { label: '证书编号', name: 'Number', width: 150, align: 'left' },
+                {
+                    label: '发证时间', name: 'CertificationTime', width: 80, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                },
+                {
+                    label: '验证', name: 'IsQualified', width: 80, align: 'center',
+                    formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue == true) {
+                            return '通过';
+                        } else {
+                            return '不通过';
+                        }
+                    }
+                }
+            ],
+            gridComplete: function () {
+                var ids = $("#gridList").getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowData = $("#gridList").getRowData(ids[i]);
+                    if (rowData.IsQualified == "不通过") {//如果审核不通过，则背景色置于红色
+                        //$('#' + ids[i]).find("td").addClass("SelectBG");
+                        $('#' + ids[i]).find("td").css("background-color", "rgb(255, 160, 0)");
+                        $('#' + ids[i]).find("td").css("color", "rgb(255, 255, 255)");
+                    }
+                }
+
+                //$("#" + this.id).jqGrid('setSelection', SelectRowIndx);
+            }
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+
+    function submitForm() {
+        $.submitForm({
+            url: "/CertificateManage/Certificate/SubmitImport",
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+<div class="gridPanel">
+    <table id="gridList"></table>
+</div>

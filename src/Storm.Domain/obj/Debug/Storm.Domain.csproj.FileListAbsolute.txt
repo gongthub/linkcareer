@@ -88,3 +88,5 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Domain\obj\Debug\Storm.Domain.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Domain\obj\Debug\Storm.Domain.pdb
 D:\MyFiles\Projects\linkcareer\src\Storm.Domain\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Domain\bin\Debug\MySql.Data.dll
+E:\WorkFiles\Project\GIT\linkcareer\src\Storm.Domain\bin\Debug\MySql.Data.Entity.EF6.dll
+E:\WorkFiles\Project\GIT\linkcareer\src\Storm.Domain\bin\Debug\MySql.Data.dll

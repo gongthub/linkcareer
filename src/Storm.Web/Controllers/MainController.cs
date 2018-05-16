@@ -19,37 +19,48 @@ namespace Storm.Web.Controllers
         public ActionResult Search(string name, string IdNumber, string CertificateNumber)
         {
             CertificateApp certificateApp = new CertificateApp();
-            CertificateEntity certificateEntity = new CertificateEntity();
+            List<CertificateEntity> certificateEntitys = new List<CertificateEntity>();
+            List<CertificateShowEntity> certificateShowEntitys = new List<CertificateShowEntity>();
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(IdNumber))
             {
-                certificateEntity = certificateApp.GetForm(name, IdNumber);
+                certificateEntitys = certificateApp.GetForms(name, IdNumber);
             }
             if (!string.IsNullOrEmpty(CertificateNumber))
             {
-                certificateEntity = certificateApp.GetFormByNumber(CertificateNumber);
+                certificateEntitys = new List<CertificateEntity>();
+                CertificateEntity certificateEntitT = certificateApp.GetFormByNumber(CertificateNumber);
+                if (certificateEntitT != null && !string.IsNullOrEmpty(certificateEntitT.Id))
+                    certificateEntitys.Add(certificateEntitT);
             }
-            ViewBag.GenderStr = "";
-            if (certificateEntity != null)
+            if (certificateEntitys != null && certificateEntitys.Count > 0)
             {
-                if (certificateEntity.Gender == 0)
+                foreach (CertificateEntity item in certificateEntitys)
                 {
-                    ViewBag.GenderStr = "男";
-                }
-                if (certificateEntity.Gender == 1)
-                {
-                    ViewBag.GenderStr = "女";
+                    CertificateShowEntity certificateShowEntity = new CertificateShowEntity();
+                    certificateShowEntity.SortCode = item.SortCode;
+                    certificateShowEntity.FullName = item.FullName;
+
+                    certificateShowEntity.IdCard = item.IdCard;
+                    certificateShowEntity.ProjectType = item.ProjectType;
+                    certificateShowEntity.ProjectName = item.ProjectName;
+                    certificateShowEntity.Number = item.Number;
+                    if (item.Gender == 0)
+                    {
+                        certificateShowEntity.Gender = "男";
+                    }
+                    if (item.Gender == 1)
+                    {
+                        certificateShowEntity.Gender = "女";
+                    }
+                    if (item.CertificationTime != null)
+                    {
+                        certificateShowEntity.CertificationTime = ((DateTime)item.CertificationTime).ToString("yyyy-MM-dd");
+                    }
+                    certificateShowEntitys.Add(certificateShowEntity);
                 }
             }
-            ViewBag.CertificationTimeStr = "";
-            if (certificateEntity != null)
-            {
-                if (certificateEntity.CertificationTime != null)
-                {
-                    ViewBag.CertificationTimeStr = ((DateTime)certificateEntity.CertificationTime).ToString("yyyy-MM-dd");
-                }
-            }
-            if (certificateEntity != null && !string.IsNullOrEmpty(certificateEntity.Id))
-                return View(certificateEntity);
+            if (certificateShowEntitys != null && certificateShowEntitys.Count > 0)
+                return View(certificateShowEntitys);
             else
                 return View("NoFind");
         }

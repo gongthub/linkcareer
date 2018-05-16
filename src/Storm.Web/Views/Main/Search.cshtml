@@ -1,4 +1,4 @@
-﻿@model Storm.Domain.Entity.CertificateManage.CertificateEntity
+﻿@model List<Storm.Domain.Entity.CertificateManage.CertificateShowEntity>
 @{
     Layout = null;
 
@@ -27,7 +27,7 @@
             margin-left: auto;
             margin-right: auto;
             width: 946px;
-            height: 282px;
+            height: 500px;
             background-image: url(/Content/images/bg.png);
             margin-top: 50px;
             color: #333;
@@ -71,34 +71,66 @@
         <img src="/Content/images/banner.jpg" width="960" height="158">
     </div>
     <div id="main">
+        <div style="height:50px;"></div>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+
+                <div style="border:1px solid black;width:90%;margin:0 auto;">
+                    <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="4" style="text-align:center;">@item.ProjectName</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="28%" align="center"><strong>姓名</strong></td>
+                                <td width="20%">@item.FullName</td>
+                                <td width="24%" align="center"><strong>身份证号</strong></td>
+                                <td width="28%">@item.IdCard</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><strong>证书编号</strong></td>
+                                <td>@item.Number</td>
+                                <td align="center"><strong>证书类型</strong></td>
+                                <td>@item.ProjectName</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><strong>性别</strong></td>
+                                <td>@item.Gender</td>
+                                <td align="center"><strong>发证时间</strong></td>
+                                <td>
+                                    @item.CertificationTime
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">&nbsp;</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <br />
+            }
+        }
+
         <table width="100%" border="0" cellspacing="5" cellpadding="0">
             <tbody>
-                <tr>
-                    <td width="28%" align="center"><strong>姓名</strong></td>
-                    <td width="20%">@Model.FullName</td>
-                    <td width="24%" align="center"><strong>身份证号</strong></td>
-                    <td width="28%">@Model.IdCard</td>
-                </tr>
-                <tr>
-                    <td align="center"><strong>证书编号</strong></td>
-                    <td>@Model.Number</td>
-                    <td align="center"><strong>项目名称</strong></td>
-                    <td>@Model.ProjectName</td>
-                </tr>
-                <tr>
-                    <td align="center"><strong>性别</strong></td>
-                    <td>@ViewBag.GenderStr</td>
-                    <td align="center"><strong>发证时间</strong></td>
-                    <td>
-                        @ViewBag.CertificationTimeStr
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
                 <tr>
                     <th colspan="4" scope="row">【<a href="index">返回</a>】</th>
                 </tr>
@@ -110,7 +142,6 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
     <div id="footer">
         版权所有:中国青少年发展服务中心

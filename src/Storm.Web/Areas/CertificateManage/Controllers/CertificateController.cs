@@ -1,4 +1,5 @@
-﻿using Storm.Application.CertificateManage;
+﻿using Newtonsoft.Json;
+using Storm.Application.CertificateManage;
 using Storm.Code;
 using Storm.Domain.Entity.CertificateManage;
 using System;
@@ -13,20 +14,33 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
     public class CertificateController : ControllerBase
     {
         private CertificateApp certificateApp = new CertificateApp();
-        
+
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword, string projectType)
         {
             var data = new
             {
-                rows = certificateApp.GetList(pagination, keyword),
+                rows = certificateApp.GetList(pagination, keyword, projectType),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
             };
             return Content(data.ToJson());
         }
+        //[HttpGet]
+        //[HandlerAjaxOnly]
+        //public ActionResult GetGridJson(Pagination pagination, string keyword)
+        //{
+        //    var data = new
+        //    {
+        //        rows = certificateApp.GetList(pagination, keyword),
+        //        total = pagination.total,
+        //        page = pagination.page,
+        //        records = pagination.records
+        //    };
+        //    return Content(data.ToJson());
+        //}
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
@@ -37,19 +51,41 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(CertificateEntity certificateEntity, string keyValue)
+        public ActionResult SubmitForm(CertificateEntity certificateEntity, string keyValue, string projectType)
         {
-            certificateApp.SubmitForm(certificateEntity, keyValue);
+            certificateApp.SubmitForm(certificateEntity, keyValue, projectType);
             return Success("操作成功。");
         }
+        //[HttpPost]
+        //[HandlerAjaxOnly]
+        //[HandlerAuthorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteForm(string keyValue)
+        //{
+        //    certificateApp.DeleteForm(keyValue);
+        //    return Success("删除成功。");
+        //}
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteForm(string keyValue)
+        public ActionResult DeleteForm(string ids)
         {
-            certificateApp.DeleteForm(keyValue);
+            certificateApp.DeleteForms(ids);
             return Success("删除成功。");
+        }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitImport()
+        {
+            List<CertificateImportEntity> models = new List<CertificateImportEntity>();
+            if (Session["importmodels"] != null)
+            {
+                models = (List<CertificateImportEntity>)Session["importmodels"];
+                certificateApp.AddForms(models);
+            }
+            return Success("操作成功。");
         }
 
         [HttpGet]
@@ -67,31 +103,51 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
             var data = certificateApp.GetFormByNumber(number);
             return Content(data.ToJson());
         }
+        [HttpGet]
+        public ActionResult ImportView()
+        {
+            return View();
+        }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetImportGridJson()
+        {
+            List<CertificateImportEntity> models = new List<CertificateImportEntity>();
+            if (Session["importmodels"] != null)
+            {
+                models = (List<CertificateImportEntity>)Session["importmodels"];
+            }
+            models = models.OrderBy(m => m.IsQualified).ThenBy(m => m.Number).ToList();
+            return Content(models.ToJson());
+        }
 
         [HttpPost]
-        [HandlerAuthorize]
-        public ActionResult Import()
+        public ActionResult Import(string projectType)
         {
             try
             {
-                string message = "导入成功！";
+                List<CertificateImportEntity> models = new List<CertificateImportEntity>();
                 if (HttpContext.Request.Files.Count > 0)
                 {
                     var upFiles = HttpContext.Request.Files;
                     if (upFiles != null)
                     {
-                        string messageres = certificateApp.UploadFiles(upFiles);
-                        if (!string.IsNullOrEmpty(messageres))
-                        {
-                            message = message + "身份证号：" + messageres + "已存在！";
-                        }
+                        models = certificateApp.UploadFiles(upFiles,projectType);
                     }
                 }
                 else
                 {
                     return Success("false", "必须选择一个文件");
                 }
-                return Success("true", message);
+                Session["importmodels"] = models;
+                if (models != null && models.Count > 0)
+                {
+                    return Success("true", "上传成功！");
+                }
+                else
+                {
+                    return Success("false", "上传数据为空！");
+                }
 
             }
             catch (Exception ex)
@@ -102,10 +158,10 @@ namespace Storm.Web.Areas.CertificateManage.Controllers
 
 
         [HttpGet]
-        public void Export()
+        public void Export(string projectType)
         {
             MemoryStream ms = new MemoryStream();
-            ms = certificateApp.ExportExcel();
+            ms = certificateApp.ExportExcel(projectType);
             string sheetName = HttpUtility.UrlEncode("证书", System.Text.Encoding.UTF8);
             HttpContext.Response.AppendHeader("Content-Disposition", "attachment;filename=" + sheetName + ".xlsx");
             HttpContext.Response.BinaryWrite(ms.ToArray());
