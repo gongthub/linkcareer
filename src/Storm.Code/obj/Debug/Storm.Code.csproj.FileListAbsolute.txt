@@ -52,4 +52,3 @@ D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Debug\Storm.Code.csproj.CopyCo
 D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Debug\Storm.Code.dll
 D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Debug\Storm.Code.pdb
 E:\WorkFiles\Project\GIT\linkcareer\src\Storm.Code\obj\Debug\Storm.Code.csprojAssemblyReference.cache
-D:\MyFiles\Projects\linkcareer\src\Storm.Code\obj\Debug\Storm.Code.csprojResolveAssemblyReference.cache

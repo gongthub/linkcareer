@@ -370,18 +370,20 @@ namespace Storm.Application.CertificateManage
                             string fullName = item[1].ToString();
                             certificateEntity.FullName = fullName;
                         }
-                        if (item[2] == null || string.IsNullOrEmpty(item[2].ToString()))
+                        if (item[2] == null || string.IsNullOrEmpty(item[2].ToString())
+                            || (item[2].ToString() != "男" && item[2].ToString() != "女"))
                         {
                             certificateEntity.IsQualified = false;
                         }
                         if (item[2] != null)
                         {
                             string genders = item[2].ToString();
+                            certificateEntity.Gender = -1;
                             if (genders == "男")
                             {
                                 certificateEntity.Gender = 0;
                             }
-                            else
+                            if (genders == "女")
                             {
                                 certificateEntity.Gender = 1;
                             }
@@ -420,9 +422,7 @@ namespace Storm.Application.CertificateManage
                         if (item[6] != null)
                         {
                             string str = item[6].ToString();
-                            DateTime dateTime = DateTime.Now;
-                            if (DateTime.TryParse(str, out dateTime))
-                                certificateEntity.CertificationTime = dateTime;
+                            certificateEntity.CertificationTime = str;
                         }
                         models.Add(certificateEntity);
                     }
@@ -464,14 +464,7 @@ namespace Storm.Application.CertificateManage
                 dataRow[3] = model.IdCard;
                 dataRow[4] = model.ProjectName;
                 dataRow[5] = model.Number;
-                if (model.CertificationTime != null)
-                {
-                    dataRow[6] = ((DateTime)model.CertificationTime).ToString("yyyy-MM-dd");
-                }
-                else
-                {
-                    dataRow[6] = "";
-                }
+                dataRow[6] = model.CertificationTime;
                 dt.Rows.Add(dataRow);
             }
             return dt;

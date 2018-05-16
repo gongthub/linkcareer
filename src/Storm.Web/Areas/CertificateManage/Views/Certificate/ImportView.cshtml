@@ -17,24 +17,23 @@
                 { label: '序号', name: 'SortCode', align: 'center' },
                 { label: '姓名', name: 'FullName', align: 'center' },
                 {
-                    label: '性别', name: 'Gender',  align: 'center',
+                    label: '性别', name: 'Gender', align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
                             return '男';
-                        } else {
+                        } else if (cellvalue == 1) {
                             return '女';
+                        } else {
+                            return "不合法";
                         }
                     }
                 },
                 { label: '身份证', name: 'IdCard', align: 'center' },
                 { label: '项目名称', name: 'ProjectName', align: 'center' },
                 { label: '证书编号', name: 'Number', align: 'center' },
+                { label: '发证时间', name: 'CertificationTime', align: 'center' },
                 {
-                    label: '发证时间', name: 'CertificationTime', align: 'center',
-                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
-                },
-                {
-                    label: '验证', name: 'IsQualified',align: 'center',
+                    label: '验证', name: 'IsQualified', align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == true) {
                             return '通过';

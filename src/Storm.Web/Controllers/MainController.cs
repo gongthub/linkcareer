@@ -54,7 +54,7 @@ namespace Storm.Web.Controllers
                     }
                     if (item.CertificationTime != null)
                     {
-                        certificateShowEntity.CertificationTime = ((DateTime)item.CertificationTime).ToString("yyyy-MM-dd");
+                        certificateShowEntity.CertificationTime = item.CertificationTime;
                     }
                     certificateShowEntitys.Add(certificateShowEntity);
                 }

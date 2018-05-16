@@ -13,7 +13,6 @@
                 dataType: "json",
                 async: false,
                 success: function (data) {
-                    data.CertificationTime = formatDateToStr("yyyy-MM-dd", data.CertificationTime);
                     $("#form1").formSerialize(data);
                 }
             });
@@ -78,7 +77,7 @@
             <tr>
                 <th class="formTitle">发证时间</th>
                 <td class="formValue">
-                    <input id="CertificationTime" name="CertificationTime" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                    <input id="CertificationTime" name="CertificationTime" type="text" class="form-control required" placeholder="请输入发证时间"/>
                 </td>
             </tr>
         </table>

@@ -11,7 +11,6 @@
             dataType: "json",
             async: false,
             success: function (data) {
-                data.CertificationTime = formatDateToStr("yyyy-MM-dd", data.CertificationTime);
                 $("#form1").formSerialize(data);
                 $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
                 $("#form1").find('div.ckbox label').attr('for', '');
@@ -65,7 +64,7 @@
             <tr>
                 <th class="formTitle">发证时间</th>
                 <td class="formValue">
-                    <input id="CertificationTime" name="CertificationTime" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                    <input id="CertificationTime" name="CertificationTime" type="text" class="form-control required"  placeholder="请输入发证时间" />
                 </td>
             </tr>
         </table>

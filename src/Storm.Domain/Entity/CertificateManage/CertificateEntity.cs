@@ -16,7 +16,7 @@ namespace Storm.Domain.Entity.CertificateManage
         public string ProjectType { get; set; }
         public string ProjectName { get; set; }
         public string Number { get; set; }
-        public DateTime? CertificationTime { get; set; }
+        public string CertificationTime { get; set; }
         public bool? DeleteMark { get; set; }
         public bool? EnabledMark { get; set; }
         public string Description { get; set; }
@@ -39,7 +39,7 @@ namespace Storm.Domain.Entity.CertificateManage
         public string ProjectType { get; set; }
         public string ProjectName { get; set; }
         public string Number { get; set; }
-        public DateTime? CertificationTime { get; set; }
+        public string CertificationTime { get; set; }
         public bool IsQualified { get; set; }
     }
     public class CertificateShowEntity
