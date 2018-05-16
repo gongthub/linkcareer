@@ -27,7 +27,7 @@ CREATE TABLE `c_certificates` (
   `IdCard` varchar(50) DEFAULT NULL,
   `ProjectName` varchar(200) DEFAULT NULL,
   `Number` varchar(50) DEFAULT NULL,
-  `CertificationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `CertificationTime` varchar(200) DEFAULT NULL,
   `DeleteMark` tinyint(4) DEFAULT NULL,
   `EnabledMark` tinyint(4) DEFAULT NULL,
   `Description` varchar(255) DEFAULT NULL,
