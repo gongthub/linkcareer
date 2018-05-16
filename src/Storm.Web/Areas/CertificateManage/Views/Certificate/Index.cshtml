@@ -146,7 +146,6 @@
                 var jsonData = eval(data);
                 if (jsonData.message == "true") {
                     importConfirm();
-                    $.reload();
                 } else {
                     alert(jsonData.data);
                     return;

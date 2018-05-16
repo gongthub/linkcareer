@@ -62,7 +62,8 @@
             url: "/CertificateManage/Certificate/SubmitImport",
             param: $("#form1").formSerialize(),
             success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$.reload();
             }
         })
     }
