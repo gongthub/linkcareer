@@ -11,12 +11,13 @@
         $gridList.dataGrid({
             url: "/CertificateManage/Certificate/GetImportGridJson",
             height: $(window).height() - 96,
+            shrinkToFit: true,
             colModel: [
                 { label: "主键", name: "Id", hidden: true, key: true },
-                { label: '序号', name: 'SortCode', width: 50, align: 'left' },
-                { label: '姓名', name: 'FullName', width: 80, align: 'left' },
+                { label: '序号', name: 'SortCode', align: 'center' },
+                { label: '姓名', name: 'FullName', align: 'center' },
                 {
-                    label: '性别', name: 'Gender', width: 50, align: 'center',
+                    label: '性别', name: 'Gender',  align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
                             return '男';
@@ -25,15 +26,15 @@
                         }
                     }
                 },
-                { label: '身份证', name: 'IdCard', width: 150, align: 'left' },
-                { label: '证书类型', name: 'ProjectName', width: 150, align: 'left' },
-                { label: '证书编号', name: 'Number', width: 150, align: 'left' },
+                { label: '身份证', name: 'IdCard', align: 'center' },
+                { label: '项目名称', name: 'ProjectName', align: 'center' },
+                { label: '证书编号', name: 'Number', align: 'center' },
                 {
-                    label: '发证时间', name: 'CertificationTime', width: 80, align: 'left',
+                    label: '发证时间', name: 'CertificationTime', align: 'center',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 },
                 {
-                    label: '验证', name: 'IsQualified', width: 80, align: 'center',
+                    label: '验证', name: 'IsQualified',align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == true) {
                             return '通过';

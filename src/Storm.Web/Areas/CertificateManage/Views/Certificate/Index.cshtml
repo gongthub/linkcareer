@@ -6,7 +6,13 @@
     var projectType = $.request("projectType");
     $(function () {
         gridList();
-    })
+    });
+    $(function () {
+        $(window).resize(function () {
+            $("#analyDataTab").setGridWidth($(window).width() * 0.99);
+            $("#charDataTab").setGridWidth(document.body.clientWidth * 0.99);
+        });
+    });
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
@@ -14,12 +20,13 @@
             postData: { projectType: projectType },
             height: $(window).height() - 96,
             multiselect: true,//复选框 
+            shrinkToFit: true,
             colModel: [
                 { label: "主键", name: "Id", hidden: true, key: true },
-                { label: '序号', name: 'SortCode', width: 30, align: 'left' },
-                { label: '姓名', name: 'FullName', width: 60, align: 'left' },
+                { label: '序号', name: 'SortCode', align: 'center' },
+                { label: '姓名', name: 'FullName', align: 'center' },
                 {
-                    label: '性别', name: 'Gender', width: 60, align: 'center',
+                    label: '性别', name: 'Gender', align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
                             return '男';
@@ -28,15 +35,15 @@
                         }
                     }
                 },
-                { label: '身份证', name: 'IdCard', width: 150, align: 'left' },
-                { label: '证书类型', name: 'ProjectName', width: 150, align: 'left' },
-                { label: '证书编号', name: 'Number', width: 150, align: 'left' },
+                { label: '身份证', name: 'IdCard', align: 'center' },
+                { label: '项目名称', name: 'ProjectName', align: 'center' },
+                { label: '证书编号', name: 'Number', align: 'center' },
                 {
-                    label: '发证时间', name: 'CertificationTime', width: 80, align: 'left',
+                    label: '发证时间', name: 'CertificationTime', align: 'center',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 },
                 {
-                    label: '导入时间', name: 'CreatorTime', width: 120, align: 'left',
+                    label: '导入时间', name: 'CreatorTime', align: 'center',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d h:i;s', newformat: 'Y-m-d h:i;s' }
                 }
             ],
