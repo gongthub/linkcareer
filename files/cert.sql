@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-05-15 17:10:44
+Date: 2018-05-16 14:56:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,6 @@ CREATE TABLE `c_certificates` (
   `SortCode` int(11) DEFAULT NULL,
   `Gender` int(11) DEFAULT NULL,
   `IdCard` varchar(50) DEFAULT NULL,
-  `ProjectType` varchar(200) DEFAULT NULL,
   `ProjectName` varchar(200) DEFAULT NULL,
   `Number` varchar(50) DEFAULT NULL,
   `CertificationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -38,6 +37,7 @@ CREATE TABLE `c_certificates` (
   `LastModifyUserId` varchar(50) DEFAULT NULL,
   `DeleteTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `DeleteUserId` varchar(50) DEFAULT NULL,
+  `ProjectType` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -563,6 +563,7 @@ INSERT INTO `sys_items` VALUES ('FA7537E2-1C64-4431-84BF-66158DD63269', '7707011
 INSERT INTO `sys_items` VALUES ('8CEB2F71-026C-4FA6-9A61-378127AE7320', '77070117-3F1A-41BA-BF81-B8B85BF10D5E', '102', '生育', '0', '2', '13', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
 INSERT INTO `sys_items` VALUES ('15023A4E-4856-44EB-BE71-36A106E2AA59', '77070117-3F1A-41BA-BF81-B8B85BF10D5E', '103', '民族', '0', '2', '14', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
 INSERT INTO `sys_items` VALUES ('BDD797C3-2323-4868-9A63-C8CC3437AEAA', '77070117-3F1A-41BA-BF81-B8B85BF10D5E', '104', '性别', '0', '2', '15', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_items` VALUES ('d73369be-3435-4dd0-bb07-4ff2a54c0e0a', '77070117-3F1A-41BA-BF81-B8B85BF10D5E', 'CertificateType', '证书类型', null, null, '50', null, '1', null, '2018-05-16 12:39:24', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:39:24', null, '2018-05-16 12:39:24', null);
 
 -- ----------------------------
 -- Table structure for `sys_itemsdetail`
@@ -638,15 +639,18 @@ INSERT INTO `sys_itemsdetail` VALUES ('4c2f2428-2e00-4336-b9ce-5a61f24193f6', '2
 INSERT INTO `sys_itemsdetail` VALUES ('48c4e0f5-f570-4601-8946-6078762db3bf', '2748F35F-4EE2-417C-A907-3453146AAF67', null, '3', '军官证', null, '0', null, '3', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
 INSERT INTO `sys_itemsdetail` VALUES ('0096ad81-4317-486e-9144-a6a02999ff19', '2748F35F-4EE2-417C-A907-3453146AAF67', null, '4', '护照', null, '0', null, '4', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
 INSERT INTO `sys_itemsdetail` VALUES ('ace2d5e8-56d4-4c8b-8409-34bc272df404', '2748F35F-4EE2-417C-A907-3453146AAF67', null, '5', '其它', null, '0', null, '5', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('795f2695-497a-4f5e-ab1d-706095c1edb9', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Other', '其他', null, '0', null, '0', null, '1', null, '2016-07-19 17:10:33', null, '2016-07-19 18:20:09', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('643209c8-931b-4641-9e04-b8bdd11800af', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Login', '登录', null, '0', null, '1', null, '1', null, '2016-07-19 17:10:39', null, '2016-07-19 18:20:17', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('3c884a03-4f34-4150-b134-966387f1de2a', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Exit', '退出', null, '0', null, '2', null, '1', null, '2016-07-19 17:10:49', null, '2016-07-19 18:20:23', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('ccc8e274-75da-4eb8-bed0-69008ab7c41c', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Visit', '访问', null, '0', null, '3', null, '1', null, '2016-07-19 17:10:55', null, '2016-07-19 18:20:29', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('e545061c-93fd-4ca2-ab29-b43db9db798b', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Create', '新增', null, '0', null, '4', null, '1', null, '2016-07-19 17:11:03', null, '2016-07-19 18:20:35', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('a13ccf0d-ac8f-44ac-a522-4a54edf1f0fa', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Delete', '删除', null, '0', null, '5', null, '1', null, '2016-07-19 17:11:09', null, '2016-07-19 18:20:43', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('392f88a8-02c2-49eb-8aed-b2acf474272a', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Update', '修改', null, '0', null, '6', null, '1', null, '2016-07-19 17:11:14', null, '2016-07-19 18:20:49', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('24e39617-f04e-4f6f-9209-ad71e870e7c6', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Submit', '提交', null, '0', null, '7', null, '1', null, '2016-07-19 17:11:19', null, '2016-07-19 18:20:54', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_itemsdetail` VALUES ('7fc8fa11-4acf-409a-a771-aaf1eb81e814', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Exception', '异常', null, '0', null, '8', null, '1', null, '2016-07-19 17:11:25', null, '2016-07-19 18:21:01', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('795f2695-497a-4f5e-ab1d-706095c1edb9', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Other', '其他', null, '0', null, '0', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:09', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('643209c8-931b-4641-9e04-b8bdd11800af', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Login', '登录', null, '0', null, '1', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:17', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('3c884a03-4f34-4150-b134-966387f1de2a', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Exit', '退出', null, '0', null, '2', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:23', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('ccc8e274-75da-4eb8-bed0-69008ab7c41c', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Visit', '访问', null, '0', null, '3', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:29', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('e545061c-93fd-4ca2-ab29-b43db9db798b', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Create', '新增', null, '0', null, '4', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:35', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('a13ccf0d-ac8f-44ac-a522-4a54edf1f0fa', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Delete', '删除', null, '0', null, '5', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:43', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('392f88a8-02c2-49eb-8aed-b2acf474272a', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Update', '修改', null, '0', null, '6', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:49', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('24e39617-f04e-4f6f-9209-ad71e870e7c6', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Submit', '提交', null, '0', null, '7', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:20:54', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('7fc8fa11-4acf-409a-a771-aaf1eb81e814', '9a7079bd-0660-4549-9c2d-db5e8616619f', null, 'Exception', '异常', null, '0', null, '8', '0', '1', null, '2018-05-16 13:09:55', null, '2016-07-19 18:21:01', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_itemsdetail` VALUES ('ef1923a3-42f3-44ab-8ee1-5004746d369a', 'd73369be-3435-4dd0-bb07-4ff2a54c0e0a', null, '1', '生涯规划师', null, '0', null, '1', '0', '1', null, '2018-05-16 13:09:55', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:39:45', null, '2018-05-16 12:39:45', null);
+INSERT INTO `sys_itemsdetail` VALUES ('f8809437-d39d-4f87-9d7d-9c28d5c1808a', 'd73369be-3435-4dd0-bb07-4ff2a54c0e0a', null, '2', '高考志愿规划师', null, '0', null, '2', '0', '1', null, '2018-05-16 13:09:55', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:39:57', null, '2018-05-16 12:39:57', null);
+INSERT INTO `sys_itemsdetail` VALUES ('19635873-445d-4c0a-881b-f4b106730f0b', 'd73369be-3435-4dd0-bb07-4ff2a54c0e0a', null, '3', '生涯发展与综合素质能力培训', null, '0', null, '3', '0', '1', null, '2018-05-16 13:09:55', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:40:07', null, '2018-05-16 12:40:07', null);
 
 -- ----------------------------
 -- Table structure for `sys_log`
@@ -672,6 +676,37 @@ CREATE TABLE `sys_log` (
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
+INSERT INTO `sys_log` VALUES ('4d1caaae-8df0-4343-91ff-1cf4606c64ae', '2018-05-15 18:01:21', 'admin', '超级管理员', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 18:01:21', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('103c000c-5879-4ee2-a37b-0c0ae6d71ee8', '2018-05-15 18:46:46', 'admin', '超级管理员', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 18:46:47', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('b5e21ef2-be77-457d-8b3a-140cce0a7f12', '2018-05-15 19:01:13', 'admin', '超级管理员', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-15 19:01:13', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('756034fd-02b4-4d1a-a9c0-df09e7ace02f', '2018-05-15 19:01:18', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 19:01:18', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('ac833350-b63c-43aa-9778-a32b6fa984d1', '2018-05-15 19:02:34', 'linkcareer', 'linkcareer', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-15 19:02:34', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('7af5beb3-2b91-482d-b83e-9e41a12edf47', '2018-05-15 19:02:40', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 19:02:40', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('ae45609e-d12d-447a-a8b5-4294c87873fa', '2018-05-15 19:03:49', 'admin', '超级管理员', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-15 19:03:50', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('5f8ee520-6b37-46e5-ba66-76556c78936c', '2018-05-15 19:04:22', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 19:04:22', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('4c9ff79a-bbd4-4f26-ad6f-f860dc86a04c', '2018-05-15 19:08:26', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 19:08:26', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('e9e86ed8-762a-4790-9583-0ef1b31bf356', '2018-05-15 19:14:11', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 19:14:11', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('064a842b-f841-45a7-98a3-235441e145bf', '2018-05-15 19:15:16', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 19:15:16', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('a8cec639-a41b-442f-a5c2-7ace169bf1fd', '2018-05-15 20:09:39', 'admin', 'admin', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '0', '登录失败，验证码错误，请重新输入', '2018-05-15 20:09:40', null);
+INSERT INTO `sys_log` VALUES ('0aa4a40d-63a3-4b24-8005-ebefb79129ad', '2018-05-15 20:09:52', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 20:09:52', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('8e91b4d2-ea40-4668-afe3-4d1c3cf78596', '2018-05-15 20:10:01', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 20:10:01', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('efea8369-0079-4629-bd75-e32d9007a695', '2018-05-15 20:10:36', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 20:10:36', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('34cca1f5-04e4-4d2f-a035-5ad4b82ad5b9', '2018-05-15 20:51:07', 'admin', '超级管理员', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 20:51:07', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('7488a7e0-a284-4544-9225-0bc49d4a023d', '2018-05-15 20:53:32', 'linkcaree', 'linkcaree', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '0', '登录失败，账户不存在，请重新输入', '2018-05-15 20:53:32', null);
+INSERT INTO `sys_log` VALUES ('6d5a53dc-f99e-4c6e-9244-cd24182437b0', '2018-05-15 20:53:49', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 20:53:49', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('03cf3efb-5a6c-4228-ab6f-12c9f5ab759e', '2018-05-15 21:07:10', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 21:07:10', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('cd05a0ca-c6c8-43ea-a3dd-226fcacab205', '2018-05-15 21:08:04', 'linkcareer', 'linkcareer', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-15 21:08:04', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('6d8bd9b6-5f40-4138-9aa8-b363fa9116a4', '2018-05-15 21:08:14', 'admin', '超级管理员', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 21:08:15', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('d1fadd81-82da-4cfb-bd1e-eab958e64883', '2018-05-15 21:09:02', 'admin', '超级管理员', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-15 21:09:02', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('fe9ea18c-0f9e-4876-a0c3-9a89d56e8d0c', '2018-05-15 21:09:07', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-15 21:09:07', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('bdd8ba4d-426e-4528-8d5e-747e09e13d7f', '2018-05-16 01:36:01', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-16 01:36:01', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('61d78e33-2856-43af-b68f-acbd7cb983db', '2018-05-16 09:35:26', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-16 09:35:27', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('eb624dcb-e59c-435a-8586-26b143721b31', '2018-05-16 12:35:39', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-16 12:35:40', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('134e64bb-cac3-4acb-89c2-54cbd97c0692', '2018-05-16 12:35:53', 'linkcareer', 'linkcareer', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-16 12:35:53', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('07130b99-6251-43f9-b7e8-33f014275672', '2018-05-16 12:36:00', 'admin', '超级管理员', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-16 12:36:00', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('e135063b-61ad-4293-bbc4-3f107d0b33c0', '2018-05-16 12:40:18', 'admin', '超级管理员', 'Exit', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '安全退出系统', '2018-05-16 12:40:18', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba');
+INSERT INTO `sys_log` VALUES ('2ce8ee5c-349c-4238-9b93-78e15b0524f4', '2018-05-16 12:40:26', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-16 12:40:26', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
+INSERT INTO `sys_log` VALUES ('125dfe4d-7e6b-4459-85f3-d0e0085ca15b', '2018-05-16 14:50:35', 'linkcareer', 'linkcareer', 'Login', '117.81.192.182', '江苏省苏州市 电信', null, '系统登录', '1', '登录成功', '2018-05-16 14:50:35', '784e096d-6dd9-4d36-bd04-c8d4df4446e0');
 
 -- ----------------------------
 -- Table structure for `sys_module`
@@ -752,7 +787,9 @@ INSERT INTO `sys_module` VALUES ('bfb9c6a3-ca1b-4e1f-9bd9-28c43f7fd5b2', 'bc8c1c
 INSERT INTO `sys_module` VALUES ('35818fe3-8a75-4413-b832-0dbfdad985f9', 'bc8c1ca9-9585-46b5-9f39-3c38f0e7ba41', null, null, '我的申请', null, '/WFManage/Work/MyFlow', 'iframe', '0', '0', '0', '0', '0', '20', null, '1', null, '2018-03-28 14:53:56', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
 INSERT INTO `sys_module` VALUES ('0bdfa7a5-ec75-418c-b69a-fbcf1e00da12', 'bc8c1ca9-9585-46b5-9f39-3c38f0e7ba41', null, null, '我的待办', null, '/WFManage/Work/MyPending', 'iframe', '0', '0', '0', '0', '0', '25', null, '1', null, '2018-03-29 20:47:20', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-03-29 20:47:46', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
 INSERT INTO `sys_module` VALUES ('fc23df0e-cde8-416b-ab02-35d7f3e07138', '0', null, null, '证书管理', 'fa fa-tags', null, 'expand', '0', '0', '0', '0', '0', '20', null, '1', null, '2018-05-14 22:06:13', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-14 22:08:17', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
-INSERT INTO `sys_module` VALUES ('6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', 'fc23df0e-cde8-416b-ab02-35d7f3e07138', null, null, '证书维护', null, '/CertificateManage/Certificate/Index', 'iframe', '0', '0', '0', '0', '0', '10', null, '1', null, '2018-05-14 22:06:56', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_module` VALUES ('6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', 'fc23df0e-cde8-416b-ab02-35d7f3e07138', null, null, '生涯规划师', null, '/CertificateManage/Certificate/Index?projectType=1', 'iframe', '0', '0', '0', '0', '0', '10', null, '1', null, '2018-05-16 12:36:52', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:36:52', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_module` VALUES ('eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', 'fc23df0e-cde8-416b-ab02-35d7f3e07138', null, null, '高考志愿规划师', null, '/CertificateManage/Certificate/Index?projectType=2', 'iframe', '0', '0', '0', '0', '0', '20', null, '1', null, '2018-05-16 12:37:25', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:37:24', null, '2018-05-16 12:37:24', null);
+INSERT INTO `sys_module` VALUES ('337616f9-76b1-4722-b7e9-d3d15ce14aa4', 'fc23df0e-cde8-416b-ab02-35d7f3e07138', null, null, '生涯发展与综合素质能力培训', null, '/CertificateManage/Certificate/Index?projectType=3', 'iframe', '0', '0', '0', '0', '0', '30', null, '1', null, '2018-05-16 12:37:49', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-16 12:37:48', null, '2018-05-16 12:37:48', null);
 
 -- ----------------------------
 -- Table structure for `sys_modulebutton`
@@ -860,6 +897,21 @@ INSERT INTO `sys_modulebutton` VALUES ('eabf2696-e4a0-407b-8ff5-691f70e3b40e', '
 INSERT INTO `sys_modulebutton` VALUES ('f652be01-e914-4632-8ec8-0f842308c61d', '6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', '0', '1', 'NF-import', '导入证书', null, '1', 'btn_import()', '/CertificateManage/Certificate/Import', '0', '0', '0', '0', '10', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:32:12', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
 INSERT INTO `sys_modulebutton` VALUES ('c628c430-265a-4cfc-81a8-a6ace6ac328e', '6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', '0', '1', 'NF-export', '导出证书', null, '2', 'btn_export()', '/CertificateManage/Certificate/Export', '0', '0', '0', '0', '20', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:32:37', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
 INSERT INTO `sys_modulebutton` VALUES ('eb5b0497-710e-40f9-83b1-5180a75c4bd6', '6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', '0', '1', 'NF-add', '新建证书', null, '1', 'btn_add()', '/CertificateManage/Certificate/Form', '0', '0', '0', '0', '1', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:27', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('7dc785cf-5aa9-4a94-ae35-b4196f0ca0c0', '6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', '0', null, 'NF-temple', '下载模板', null, '1', null, null, '0', '0', '0', '0', '50', null, '1', null, '2018-05-15 21:08:47', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 21:08:48', null, '2018-05-15 21:08:48', null);
+INSERT INTO `sys_modulebutton` VALUES ('03c7832c-4ddc-4d65-8553-b0f5b344a189', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', '1', 'NF-import', '导入证书', null, '1', 'btn_import()', '/CertificateManage/Certificate/Import', '0', '0', '0', '0', '10', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:32:12', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('4b20f58e-abd3-480a-af1e-99636cb8b83c', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', '1', 'NF-edit', '修改证书', null, '2', 'btn_edit()', '/CertificateManage/Certificate/Form', '0', '0', '0', '0', '2', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:36', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('69443548-5d62-4d87-baf7-7d8db57c74c1', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', '1', 'NF-delete', '删除证书', null, '2', 'btn_delete()', '/CertificateManage/Certificate/DeleteForm', '0', '0', '0', '0', '3', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:43', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('a8f9e77a-0b41-43ec-86e3-717270dda632', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', '1', 'NF-Details', '查看证书', null, '2', 'btn_details()', '/CertificateManage/Certificate/Details', '0', '0', '0', '0', '4', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:50', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('c6220b67-57e4-4acb-8ea3-1f65b8060b61', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', null, 'NF-temple', '下载模板', null, '1', null, null, '0', '0', '0', '0', '50', null, '1', null, '2018-05-15 21:08:47', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 21:08:48', null, '2018-05-15 21:08:48', null);
+INSERT INTO `sys_modulebutton` VALUES ('d6a45dbe-ed61-41b8-ab63-8b54bd3cdaf5', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', '1', 'NF-add', '新建证书', null, '1', 'btn_add()', '/CertificateManage/Certificate/Form', '0', '0', '0', '0', '1', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:27', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('fa404f19-860a-4758-bdea-f10fdf2386e8', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '0', '1', 'NF-export', '导出证书', null, '2', 'btn_export()', '/CertificateManage/Certificate/Export', '0', '0', '0', '0', '20', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:32:37', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('211e4552-df94-491f-b498-28f559e1714c', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', '1', 'NF-Details', '查看证书', null, '2', 'btn_details()', '/CertificateManage/Certificate/Details', '0', '0', '0', '0', '4', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:50', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('44374ad0-d2d5-4657-9cf8-47b5a70894d0', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', '1', 'NF-edit', '修改证书', null, '2', 'btn_edit()', '/CertificateManage/Certificate/Form', '0', '0', '0', '0', '2', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:36', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('514d4e5a-bd44-49cb-957e-9b70f3559532', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', null, 'NF-temple', '下载模板', null, '1', null, null, '0', '0', '0', '0', '50', null, '1', null, '2018-05-15 21:08:47', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 21:08:48', null, '2018-05-15 21:08:48', null);
+INSERT INTO `sys_modulebutton` VALUES ('7388233a-afe1-4070-a414-fc71e5e85ad9', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', '1', 'NF-delete', '删除证书', null, '2', 'btn_delete()', '/CertificateManage/Certificate/DeleteForm', '0', '0', '0', '0', '3', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:43', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('8158dbd2-46ae-4133-9669-048254537653', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', '1', 'NF-export', '导出证书', null, '2', 'btn_export()', '/CertificateManage/Certificate/Export', '0', '0', '0', '0', '20', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:32:37', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('8f6e41fd-e38f-42ff-bf18-c26257ea8fbe', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', '1', 'NF-add', '新建证书', null, '1', 'btn_add()', '/CertificateManage/Certificate/Form', '0', '0', '0', '0', '1', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:07:27', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
+INSERT INTO `sys_modulebutton` VALUES ('c5a16800-b4e4-4245-a14e-38d2c2c79111', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '0', '1', 'NF-import', '导入证书', null, '1', 'btn_import()', '/CertificateManage/Certificate/Import', '0', '0', '0', '0', '10', '0', '1', null, '2018-05-15 17:02:58', null, '2018-05-14 22:32:12', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
 
 -- ----------------------------
 -- Table structure for `sys_moduleform`
@@ -945,6 +997,7 @@ CREATE TABLE `sys_organize` (
 -- ----------------------------
 -- Records of sys_organize
 -- ----------------------------
+INSERT INTO `sys_organize` VALUES ('f4327827-dea6-453c-97a3-b333df0da895', '0', null, '0001', '上海巴伦支教育科技有限公司', null, 'Company', null, null, null, null, null, null, null, null, null, null, null, null, '1', null, '2018-05-15 18:03:53', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 18:03:53', null, '2018-05-15 18:03:53', null);
 
 -- ----------------------------
 -- Table structure for `sys_role`
@@ -975,38 +1028,9 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('F0A2B36F-35A7-4660-B46C-D4AB796591EB', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'administrators', '超级管理员', '1', '1', '1', '1', '0', '1', null, '2016-07-10 00:00:00', null, '2016-07-24 00:04:00', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('4B2140D3-E61D-488E-ADF6-FF0EBCBC5D2C', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'system', '系统管理员', '1', '0', '0', '2', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('42C44AC0-27FA-482D-B5E3-8F9B38B80A6A', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'configuration', '系统配置员', '2', '0', '0', '3', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('7A9CF301-FCDF-4BC9-A52B-A7D4FAE2D344', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'developer', '系统开发人员', '2', '0', '0', '4', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('2691AB91-3010-465F-8D92-60A97425A45E', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'innerStaff', '内部员工', '2', '0', '0', '5', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('41652BB4-E2DC-420E-AA8A-8C92784B76E3', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'archvist', '档案管理员', '2', '0', '0', '6', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('531F7D18-C49F-4F4F-A920-0074FCB52078', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'guest', '访客人员', '2', '0', '0', '7', '0', '1', null, '2016-07-10 00:00:00', null, '2016-07-24 15:43:29', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('2DA8390B-61A4-4E6C-A6E7-8F6794C7EDCE', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'tester', '测试人员', '2', '0', '0', '8', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('07A8E061-AE47-49C9-8310-F055F35FF44B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'services', '客服人员', '2', '0', '0', '9', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('AADB479E-9F87-49B1-AE2D-5DA6FECA3F8E', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'implement', '实施人员', '2', '0', '0', '10', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('E5EA792F-915D-44BC-9F4F-EEDB26DE5DFD', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'IPQC', '环保巡检员', '2', '0', '0', '11', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('8683CB17-5F9D-4A99-A233-A18C4D1CF95B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'businessPersonnel', '业务人员', '2', '0', '0', '12', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('F68956A9-9C53-4C08-AFE8-8A4755FE2B8F', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'inventory', '库存管理员', '2', '0', '0', '13', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('F9421969-D85C-4E4C-927F-CCFB18388A59', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'contracts', '合同专员', '2', '0', '0', '14', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('59CEAE05-0FD4-4FD3-A755-A1DFA3803D2B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'consumer', '客户维护员', '2', '0', '0', '15', '0', '1', null, '2016-07-10 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('23ED024E-0AAA-4C8D-9216-D1AB93348D26', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'employee', '员工', null, '0', '0', '1', '0', '1', null, '2016-07-12 00:00:00', null, '2016-07-18 15:18:56', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('D335A5B8-7DED-495C-B8FC-EE933FB30779', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'charge', '主管', null, '0', '0', '2', '0', '1', null, '2016-07-12 00:00:00', null, '2016-07-18 15:17:22', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('0052A230-EA7B-4F3A-A1C9-1611FF26481A', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'manager', '经理', null, null, null, '3', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('CEEA79E8-2E19-4294-8447-13247053DE04', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'director', '总监', null, null, null, '4', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('EA56E457-5024-49AF-9410-D5D71D24F14B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'vicegeneral', '副总经理', null, null, null, '5', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('796E9C6A-8432-4BA6-8CF6-EFFAB6F2098C', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'general', '总经理', null, null, null, '6', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('91E09653-D3DE-416A-BF6C-E91E60B4B4CF', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'chairman', '主任', null, null, null, '7', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('C609D4D6-81F7-4647-BF2F-81BD4CED2C19', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'fileattache', '档案专员', null, null, null, '8', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('F03EA699-9A0A-4EE9-9D33-27B9A7DFF09B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'engineer', '高级工程师', null, null, null, '9', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('0CD2A952-2EE0-4CAF-9757-617D5075745B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', 'president', '董事长', null, null, null, '10', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('B2624F67-E092-461A-AAAD-13592A9429D9', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10018', '行政助理', null, null, null, '11', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('3263446A-D303-4C42-B436-6F46BF7CE86A', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10019', '总裁', null, null, null, '12', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('CB116AA3-88CC-4CF7-B0BC-7C55EC502183', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10020', '首席执行官', null, null, null, '13', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('7E2639BA-02B9-417A-9AAA-CF6DCF8487E0', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10022', '力资源专员', null, null, null, '14', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('2B3406F9-B7FF-4D23-BC61-D8EEB6C88D5B', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10023', '行业顾问', null, null, null, '15', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('05691457-5284-4FEE-8D7E-C35141F3FF39', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10024', '总经理助理', null, null, null, '16', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
-INSERT INTO `sys_role` VALUES ('3A2FD4D7-E73C-44E4-8AED-B6EE5980779E', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '2', '10025', '大堂经理', null, null, null, '17', '0', '1', null, '2016-07-12 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_role` VALUES ('F0A2B36F-35A7-4660-B46C-D4AB796591EB', '5AB270C0-5D33-4203-A54F-4552699FDA3C', '1', 'administrators', '超级管理员', '1', '1', '1', '1', '0', '1', '', '2016-07-10 00:00:00', '', '2016-07-24 00:04:00', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 17:02:58', '');
+INSERT INTO `sys_role` VALUES ('a12d8f85-69eb-461c-af9f-16aa8696ee0d', 'f4327827-dea6-453c-97a3-b333df0da895', '2', '001', '证书管理员', null, '0', '0', '1', null, '1', null, '2018-05-15 18:35:30', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 18:35:30', null, '2018-05-15 18:35:30', null);
+INSERT INTO `sys_role` VALUES ('F0A2B36F-35A7-4660-B46C-D4AB796591EC', 'f4327827-dea6-453c-97a3-b333df0da895', '1', 'Certificate', '证书管理员', '1', '1', '1', '2', '0', '1', null, '2018-05-15 19:00:58', null, '2018-05-15 18:32:39', null, '2018-05-15 18:32:39', null);
 
 -- ----------------------------
 -- Table structure for `sys_roleauthorize`
@@ -1027,6 +1051,31 @@ CREATE TABLE `sys_roleauthorize` (
 -- ----------------------------
 -- Records of sys_roleauthorize
 -- ----------------------------
+INSERT INTO `sys_roleauthorize` VALUES ('0ca4a5c5-8749-4126-b9a3-064c875fcd04', '2', '7b169623-fdb6-4965-9413-04d6f7a13bb0', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('1765f648-6660-4d1e-8b4c-03c00e4bd322', '1', 'fc23df0e-cde8-416b-ab02-35d7f3e07138', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('1b159b65-7c8e-4cff-8dd3-bc8aa08409c8', '2', 'c628c430-265a-4cfc-81a8-a6ace6ac328e', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('1fbf4465-d8be-4ae1-8e05-3fc0e423b3b0', '2', '8c1a8aaa-cb61-4bdf-96f4-87890b7d6803', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('274f737d-e40c-4c88-b124-57edf1836985', '1', '6a96f8d9-a4e8-4c7c-8ff1-dfc223ea9bab', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('32056e82-2b9c-4e34-ba9d-fe4e8c698963', '2', 'eabf2696-e4a0-407b-8ff5-691f70e3b40e', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('37208d4b-5d28-4deb-b6a4-4d280703c4fb', '1', 'eafcadb8-46b3-4b96-a1d3-daf70ae1ea6c', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('51878c57-efe4-439e-88ca-604660d1378a', '2', 'c5a16800-b4e4-4245-a14e-38d2c2c79111', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('087840a2-9988-4ab1-9317-354fe8e72dfe', '2', '4b20f58e-abd3-480a-af1e-99636cb8b83c', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('55fedb7b-b756-45d2-b7eb-b50f8ee58ac6', '2', '8f6e41fd-e38f-42ff-bf18-c26257ea8fbe', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('5cf97a26-a90a-4780-8a82-17233653ef97', '2', '514d4e5a-bd44-49cb-957e-9b70f3559532', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('63e2cdf0-4194-445d-bc64-2f1cbd719d82', '2', 'fa404f19-860a-4758-bdea-f10fdf2386e8', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('833a954b-7183-4a22-b4c1-17a46a734619', '2', 'f652be01-e914-4632-8ec8-0f842308c61d', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('88f4505d-b11a-4f73-8897-287bd2ca733f', '2', '7dc785cf-5aa9-4a94-ae35-b4196f0ca0c0', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('8ebf70fc-1318-492d-a125-b46cb87c4872', '1', '337616f9-76b1-4722-b7e9-d3d15ce14aa4', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('964b0fa9-1894-46b8-9ee1-084b51bf01d4', '2', '69443548-5d62-4d87-baf7-7d8db57c74c1', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('9884d873-b8c1-4706-b310-02fc09e4ae40', '2', 'd6a45dbe-ed61-41b8-ab63-8b54bd3cdaf5', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('9b9c7808-82aa-4cd0-9685-c87b60727a1a', '2', '7388233a-afe1-4070-a414-fc71e5e85ad9', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('a957df14-64ac-4cd1-9b68-81af574f1f0b', '2', '8158dbd2-46ae-4133-9669-048254537653', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('aeafad4c-5bdd-4a50-b51f-80a3c09d8c5d', '2', 'eb5b0497-710e-40f9-83b1-5180a75c4bd6', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('b7d80d5a-8496-40e4-9719-e4251f4f71a1', '2', '03c7832c-4ddc-4d65-8553-b0f5b344a189', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('b9e7c26e-1115-4b4e-8ccc-e2913ee42301', '2', '211e4552-df94-491f-b498-28f559e1714c', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('bc9d68cf-3bf3-4686-91ac-ea6d0bd625fa', '2', 'a8f9e77a-0b41-43ec-86e3-717270dda632', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('be118b7d-a927-40ff-aa15-ed7fb26e7132', '2', '44374ad0-d2d5-4657-9cf8-47b5a70894d0', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
+INSERT INTO `sys_roleauthorize` VALUES ('fd9f5b5f-a6d7-4320-af87-145aa42b0d1d', '2', 'c6220b67-57e4-4acb-8ea3-1f65b8060b61', '1', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', null, '2018-05-16 12:38:38', null);
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -1068,6 +1117,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', 'admin', '超级管理员', '超级管理员', null, '1', '2018-05-15 17:02:58', '13600000000', null, null, null, null, null, '5AB270C0-5D33-4203-A54F-4552699FDA3C', '554C61CE-6AE0-44EB-B33D-A462BE7EB3E1', null, null, '0', null, '0', '1', '系统内置账户', '2016-07-20 00:00:00', null, '2018-05-15 17:02:58', null, '2018-05-15 17:02:58', null);
+INSERT INTO `sys_user` VALUES ('784e096d-6dd9-4d36-bd04-c8d4df4446e0', 'linkcareer', 'linkcareer', null, null, '1', '2018-05-15 18:38:19', null, null, null, null, null, null, 'f4327827-dea6-453c-97a3-b333df0da895', 'f4327827-dea6-453c-97a3-b333df0da895', 'F0A2B36F-35A7-4660-B46C-D4AB796591EC', 'a12d8f85-69eb-461c-af9f-16aa8696ee0d', '0', null, null, '1', null, '2018-05-15 18:38:19', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '2018-05-15 18:38:19', null, '2018-05-15 18:38:19', null);
 
 -- ----------------------------
 -- Table structure for `sys_userlogon`
@@ -1100,7 +1150,8 @@ CREATE TABLE `sys_userlogon` (
 -- ----------------------------
 -- Records of sys_userlogon
 -- ----------------------------
-INSERT INTO `sys_userlogon` VALUES ('9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '44c35ab35cb0603e90d168642ca51fb6', '57d3031d6fc4a34d', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 14:06:04', '2018-05-15 14:55:07', '2018-05-15 17:02:58', null, '196', null, null, null, null, null, null);
+INSERT INTO `sys_userlogon` VALUES ('9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', '44c35ab35cb0603e90d168642ca51fb6', '57d3031d6fc4a34d', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 17:02:58', '2018-05-15 21:08:14', '2018-05-16 12:36:00', '2018-05-15 17:02:58', null, '201', null, null, null, null, null, null);
+INSERT INTO `sys_userlogon` VALUES ('784e096d-6dd9-4d36-bd04-c8d4df4446e0', '784e096d-6dd9-4d36-bd04-c8d4df4446e0', '7e331a3fb32a354dccef0b36c8e2cd98', '64a6d6bd8e4c05ca', '2018-05-15 18:38:19', '2018-05-15 18:38:19', '2018-05-15 18:38:19', '2018-05-15 18:38:19', '2018-05-15 18:38:19', '2018-05-16 12:40:26', '2018-05-16 14:50:34', '2018-05-15 18:38:19', null, '17', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `wf_approvalprocess`
