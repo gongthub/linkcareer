@@ -18,7 +18,7 @@
         $gridList.dataGrid({
             url: "/CertificateManage/Certificate/GetGridJson",
             postData: { projectType: projectType },
-            height: $(window).height() - 96,
+            height: $(window).height() - 128,
             multiselect: true,//复选框 
             shrinkToFit: true,
             colModel: [
@@ -216,4 +216,5 @@
 </div>
 <div class="gridPanel">
     <table id="gridList"></table>
+    <div id="gridPager"></div>
 </div>

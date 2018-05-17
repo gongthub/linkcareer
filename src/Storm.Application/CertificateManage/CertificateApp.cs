@@ -17,13 +17,13 @@ namespace Storm.Application.CertificateManage
     public class CertificateApp
     {
         private ItemsDetailApp itemsDetailApp = new ItemsDetailApp();
-        List<ItemsDetailEntity> itemsDetailEntities = new List<ItemsDetailEntity>();
+        //List<ItemsDetailEntity> itemsDetailEntities = new List<ItemsDetailEntity>();
         private static string CERTTIFICATEFILEPATHS = Configs.GetValue("CertificateFilePaths");
         private ICertificateRepository service = new CertificateRepository();
 
         public CertificateApp()
         {
-            itemsDetailEntities = itemsDetailApp.GetItemList("CertificateType");
+            //itemsDetailEntities = itemsDetailApp.GetItemList("CertificateType");
         }
 
         public List<CertificateEntity> GetAllList()
@@ -64,17 +64,17 @@ namespace Storm.Application.CertificateManage
             expression = expression.And(t => t.ProjectType == projectType);
             expression = expression.And(t => t.DeleteMark != true);
             List<CertificateEntity> models = service.FindList(expression, pagination);
-            if (models != null)
-            {
-                foreach (var item in models)
-                {
-                    ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == item.ProjectType).FirstOrDefault();
-                    if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-                    {
-                        item.ProjectName = itemsDetailEntity.ItemName;
-                    }
-                }
-            }
+            //if (models != null)
+            //{
+            //    foreach (var item in models)
+            //    {
+            //        ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == item.ProjectType).FirstOrDefault();
+            //        if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //        {
+            //            item.ProjectName = itemsDetailEntity.ItemName;
+            //        }
+            //    }
+            //}
             return models;
         }
         public List<CertificateEntity> GetEnableList()
@@ -84,11 +84,11 @@ namespace Storm.Application.CertificateManage
         public CertificateEntity GetForm(string keyValue)
         {
             CertificateEntity certificateEntity = service.FindEntity(keyValue);
-            ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
-            if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-            {
-                certificateEntity.ProjectName = itemsDetailEntity.ItemName;
-            }
+            //ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
+            //if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //{
+            //    certificateEntity.ProjectName = itemsDetailEntity.ItemName;
+            //}
             return certificateEntity;
         }
         public CertificateEntity GetForm(string name, string idCard)
@@ -97,31 +97,31 @@ namespace Storm.Application.CertificateManage
             && m.FullName == name && m.IdCard == idCard).OrderBy(t => t.CreatorTime).FirstOrDefault();
             if (certificateEntity == null)
                 certificateEntity = new CertificateEntity();
-            else
-            {
-                ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
-                if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-                {
-                    certificateEntity.ProjectName = itemsDetailEntity.ItemName;
-                }
-            }
+            //else
+            //{
+            //    ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
+            //    if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //    {
+            //        certificateEntity.ProjectName = itemsDetailEntity.ItemName;
+            //    }
+            //}
             return certificateEntity;
         }
         public List<CertificateEntity> GetForms(string name, string idCard)
         {
             List<CertificateEntity> certificateEntitys = service.IQueryable(m => m.DeleteMark != true
             && m.FullName == name && m.IdCard == idCard).OrderBy(t => t.CreatorTime).ToList();
-            if (certificateEntitys != null)
-            {
-                foreach (var item in certificateEntitys)
-                {
-                    ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == item.ProjectType).FirstOrDefault();
-                    if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-                    {
-                        item.ProjectName = itemsDetailEntity.ItemName;
-                    }
-                }
-            }
+            //if (certificateEntitys != null)
+            //{
+            //    foreach (var item in certificateEntitys)
+            //    {
+            //        ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == item.ProjectType).FirstOrDefault();
+            //        if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //        {
+            //            item.ProjectName = itemsDetailEntity.ItemName;
+            //        }
+            //    }
+            //}
             return certificateEntitys;
         }
         public CertificateEntity GetFormByNumber(string number)
@@ -130,14 +130,14 @@ namespace Storm.Application.CertificateManage
             && m.Number == number).OrderBy(t => t.CreatorTime).FirstOrDefault();
             if (certificateEntity == null)
                 certificateEntity = new CertificateEntity();
-            else
-            {
-                ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
-                if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-                {
-                    certificateEntity.ProjectName = itemsDetailEntity.ItemName;
-                }
-            }
+            //else
+            //{
+            //    ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
+            //    if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //    {
+            //        certificateEntity.ProjectName = itemsDetailEntity.ItemName;
+            //    }
+            //}
             return certificateEntity;
         }
         public CertificateEntity GetFormByIdCard(string idCard)
@@ -146,14 +146,14 @@ namespace Storm.Application.CertificateManage
             && m.IdCard == idCard).OrderBy(t => t.CreatorTime).FirstOrDefault();
             if (certificateEntity == null)
                 certificateEntity = new CertificateEntity();
-            else
-            {
-                ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
-                if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-                {
-                    certificateEntity.ProjectName = itemsDetailEntity.ItemName;
-                }
-            }
+            //else
+            //{
+            //    ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == certificateEntity.ProjectType).FirstOrDefault();
+            //    if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //    {
+            //        certificateEntity.ProjectName = itemsDetailEntity.ItemName;
+            //    }
+            //}
             return certificateEntity;
         }
         public void DeleteForm(string keyValue)
@@ -184,11 +184,11 @@ namespace Storm.Application.CertificateManage
                     throw new Exception("相同身份证号下证件编号已存在，请重新输入！");
                 }
             }
-            ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == projectType).FirstOrDefault();
-            if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-            {
-                certificateEntity.ProjectName = itemsDetailEntity.ItemName;
-            }
+            //ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == projectType).FirstOrDefault();
+            //if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+            //{
+            //    certificateEntity.ProjectName = itemsDetailEntity.ItemName;
+            //}
             if (!string.IsNullOrEmpty(keyValue))
             {
                 certificateEntity.Modify(keyValue);
@@ -344,12 +344,12 @@ namespace Storm.Application.CertificateManage
                         CertificateImportEntity certificateEntity = new CertificateImportEntity();
                         certificateEntity.IsQualified = true;
                         certificateEntity.ProjectType = projectType;
-                        string projectName = string.Empty;
-                        ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == projectType).FirstOrDefault();
-                        if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
-                        {
-                            projectName = itemsDetailEntity.ItemName;
-                        }
+                        //string projectName = string.Empty;
+                        //ItemsDetailEntity itemsDetailEntity = itemsDetailEntities.Where(m => m.ItemCode == projectType).FirstOrDefault();
+                        //if (itemsDetailEntity != null && !string.IsNullOrEmpty(itemsDetailEntity.Id))
+                        //{
+                        //    projectName = itemsDetailEntity.ItemName;
+                        //}
                         if (item[0] == null || string.IsNullOrEmpty(item[0].ToString()))
                         {
                             certificateEntity.IsQualified = false;
@@ -397,7 +397,8 @@ namespace Storm.Application.CertificateManage
                             string str = item[3].ToString();
                             certificateEntity.IdCard = str;
                         }
-                        if (item[4] == null || string.IsNullOrEmpty(item[4].ToString()) || projectName != item[4].ToString())
+                        //if (item[4] == null || string.IsNullOrEmpty(item[4].ToString()) || projectName != item[4].ToString())
+                        if (item[4] == null || string.IsNullOrEmpty(item[4].ToString()))
                         {
                             certificateEntity.IsQualified = false;
                         }
