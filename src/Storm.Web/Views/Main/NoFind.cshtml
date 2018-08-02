@@ -9,73 +9,72 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>中国青少年发展服务中心</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
 
-        #header {
-            margin-left: auto;
-            margin-right: auto;
-            width: 960px;
-            height: 158px;
-        }
-
-        #main {
-            margin-left: auto;
-            margin-right: auto;
-            width: 946px;
-            height: 282px;
-            background-image: url(/Content/images/bg.png);
-            margin-top: 50px;
-            color: #333;
-            font-size: 12px;
-            padding-top: 100px;
-        }
-
-        input {
-            width: 250px;
-        }
-
-        #footer {
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-            height: 80px;
-            text-align: center;
-            font-size: 12px;
-            border-top: solid 2px #efefef;
-            margin-top: 20px;
-            padding-top: 20px;
-        }
-
-        .footer {
-            margin-top: 20px;
-        }
-    </style>
     <style type="text/css">
-        :root #header + #content > #left > #rlblock_left,
-        :root .container > .ads:first-child,
-        :root .footer > #box[style="width:100%;height:100%;position:fixed;top:0"],
-        :root .content > a > .topline,
-        :root .content > .ads:first-child {
-            display: none !important;
+        body {
+            margin: 0px;
+        }
+
+        .dvCent {
+            width: 100%;
+        }
+
+        .dvCentTopimg {
+            width: 100%;
+        }
+
+            .dvCentTopimg img {
+                width: 100%;
+            }
+
+        .dvCentbtnmain {
+            width: 100%;
+            text-align: center;
+        }
+
+        .dvCentbtn {
+            width: 200px;
+            height: 40px;
+            margin-top: 40px;
+            border: 0;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        .dvCentcopy {
+            width: 100%;
+            text-align: center;
+            font-family: 'Microsoft YaHei';
+            font-size: 12px;
+            position: fixed;
+            bottom: 30px;
         }
     </style>
 </head>
 
 <body>
-    <div id="header">
-        <img src="/Content/images/banner.jpg" width="960" height="158">
-    </div>
-    <div id="main">
+    <div class="dvCent">
+        <div class="dvCentTopimg">
+            <img src="~/Content/images/top2.png" />
+        </div>
         <div style="width:100%;text-align:center;">
             <h5 style="color:red;">未查询到相关证件信息，请确认查询号！</h5>
         </div>
-    </div>
-    <div id="footer">
-        版权所有:中国青少年发展服务中心
+        <div class="dvCentbtnmain">
+            <span>
+                <input class="dvCentbtn" type="button" value="返回首页" onclick="goIndex()" />
+            </span>
+        </div>
+        <div class="dvCentcopy">
+            版权所有：中国少年儿童发展服务中心、中国青少年宫协会
+        </div>
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    function goIndex() {
+        document.location.href = "/main/Index";
+    }
+</script>

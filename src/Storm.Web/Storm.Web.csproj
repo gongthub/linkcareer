@@ -1060,10 +1060,10 @@
     <Content Include="Areas\CertificateManage\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Index.old.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Main\Search.cshtml" />
+    <Content Include="Views\Main\Search.old.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\模板.xlsx" />
@@ -1072,6 +1072,8 @@
     <Content Include="Areas\CertificateManage\Views\Certificate\ImportView.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Main\NoFind.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Search.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
