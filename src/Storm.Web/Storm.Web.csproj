@@ -208,7 +208,10 @@
     <Content Include="Content\GooFlow\json2.js" />
     <Content Include="Content\images\banner.jpg" />
     <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\bg01.png" />
     <Content Include="Content\images\button.png" />
+    <Content Include="Content\images\top.png" />
+    <Content Include="Content\images\top2.png" />
     <Content Include="Content\img\ajax-loader.gif" />
     <Content Include="Content\img\alipay.jpg" />
     <Content Include="Content\img\alipayimg.png" />
