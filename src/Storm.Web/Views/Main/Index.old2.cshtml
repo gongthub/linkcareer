@@ -20,7 +20,6 @@
 
         .dvCentTopimg {
             width: 100%;
-            position:absolute;
         }
 
             .dvCentTopimg img {
@@ -28,12 +27,8 @@
             }
 
         .dvCentTopinput {
-            position: absolute;
-            width: 22%;
-            height: 32%;
-            background-color: white;
-            margin-top: 22%;
-            left: 38%;
+            width: 300px;
+            margin: 0 auto;
         }
 
             .dvCentTopinput div {
@@ -42,39 +37,48 @@
             }
 
                 .dvCentTopinput div input {
-                    width: 88%;
+                    width: 100%;
                     height: 30px;
-                    border: 1px solid #cad3df;
-                    margin-left:6%;
+                    border: 1px solid red;
                 }
 
         .dvCentbtn {
-            width: 60px !important;
+            width: 300px;
             height: 30px;
             margin-top: 10px;
             border: 0;
-            border-radius:5px;
-            background-color: #1d9deb;
+            background-color: red;
             color: white;
         }
 
         .dvCentdesc {
-            color: red;
-            margin-left: 10px;
-            font-size: 10px;
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 6px;
+            text-align: center;
             font-family: 'Microsoft YaHei';
+            font-size: 16px;
         }
 
+        .dvCentcopy {
+            width: 100%;
+            text-align: center; 
+            font-family: 'Microsoft YaHei';
+            font-size: 12px;
+            position: fixed;
+            bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="dvCent">
         <div class="dvCentTopimg">
-            <img src="~/Content/images/login.png" />
+            <img src="~/Content/images/top.png" />
         </div>
         <div class="dvCentTopinput">
             <form name="form1" action="/Main/Search" method="post">
-                <div style="margin-top:25px;">
+
+                <div>
                     <input type="text" placeholder="  姓名：" name="name" />
                 </div>
                 <div>
@@ -83,10 +87,16 @@
                 <div>
                     <input type="text" placeholder="  证书编号：" name="CertificateNumber" />
                 </div>
-                <div>
-                    <input class="dvCentbtn" type="button" value="查询" onclick=" document.form1.submit();" /><span class="dvCentdesc">提示：任意输入以上两项即可查询</span>
-                </div>
+                <span>
+                    <input class="dvCentbtn" type="button" value="立即查询" onclick=" document.form1.submit();" />
+                </span>
             </form>
+        </div>
+        <div class="dvCentdesc">
+            （任意输入以上两项即可查询）
+        </div>
+        <div class="dvCentcopy">
+            版权所有：中国少年儿童发展服务中心、中国青少年宫协会
         </div>
     </div>
 </body>
