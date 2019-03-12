@@ -1077,6 +1077,7 @@
     <Content Include="Views\Main\NoFind.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Main\Search.cshtml" />
+    <Content Include="Views\Main\Index.old2.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
