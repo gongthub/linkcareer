@@ -184,6 +184,7 @@
     <Content Include="Content\css\framework-login.css" />
     <Content Include="Content\css\framework-theme.css" />
     <Content Include="Content\css\framework-ui.css" />
+    <Content Include="Content\css\main.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\weathericons-regular-webfont.svg" />
